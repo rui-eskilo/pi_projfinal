@@ -1,4 +1,4 @@
 pi_queixinhas
 =============
 
-projecto final de pi
+PI Final Project. 
