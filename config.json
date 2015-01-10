@@ -1,0 +1,5 @@
+{
+    "db": {
+        "connString": "postgres://queixinhasmaster:grupo15@localhost/queixinhasdb"
+    }
+}
