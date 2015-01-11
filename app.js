@@ -4,6 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require("passport");
+LocalStrategy = require('passport-local').Strategy;
+
 
 var routes = require('./routes');
 var users = require('./routes/users');
@@ -12,8 +15,6 @@ var contact = require('./routes/details/contact');
 var login = require('./routes/login');
 var queixinhas = require('./routes/queixinhas');
 var register = require('./routes/register');
-var passport = require("passport");
-LocalStrategy = require('passport-local').Strategy;
 var app = express();
 
 
