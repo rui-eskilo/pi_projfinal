@@ -12,6 +12,8 @@ var contact = require('./routes/details/contact');
 var login = require('./routes/login');
 var queixinhas = require('./routes/queixinhas');
 var register = require('./routes/register');
+var passport = require("passport");
+LocalStrategy = require('passport-local').Strategy;
 var app = express();
 
 
