@@ -35,3 +35,26 @@ module.exports.allQueixinhas = function(cb)
 	});
 
 }
+
+
+
+module.exports.getById = function(id, cb)
+{
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+
+		client.query("SELECT q.id, estado, c.descricao AS categoria, alcunha, georeferencia, q.descricao FROM queixinha AS q JOIN utilizador AS u ON q.criador=u.id JOIN categoria AS c ON q.categoria=c.id WHERE q.id = $1",
+			[id],
+			function(err, result)
+			{
+				if(err) return cb(err);
+
+				var queixinha = new Queixinha(result.rows[0].id, result.rows[0].estado, result.rows[0].categoria, 
+					result.rows[0].alcunha, result.rows[0].georeferencia, result.rows[0].descricao);
+				cb(null, queixinha);
+			}
+		);
+	});
+
+}

@@ -9,7 +9,8 @@ var routes = require('./routes');
 var users = require('./routes/users');
 var about = require('./routes/details/about');
 var contact = require('./routes/details/contact');
-var login = require('./routes/queixinhas');
+var login = require('./routes/login');
+var queixinhas = require('./routes/queixinhas');
 var register = require('./routes/register');
 var app = express();
 
@@ -31,6 +32,10 @@ app.use('/users', users);
 app.use('/about', about);
 app.use('/contact', contact);
 app.use('/login', login);
+
+app.use('/queixinhas', queixinhas);
+
+
 app.use('/register', register);
 
 // catch 404 and forward to error handler
