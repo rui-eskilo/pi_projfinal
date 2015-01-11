@@ -5,11 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
+var routes = require('./routes');
 var users = require('./routes/users');
 var about = require('./routes/details/about');
 var contact = require('./routes/details/contact');
-var login = require('./routes/login');
+var login = require('./routes/queixinhas');
 var register = require('./routes/register');
 var app = express();
 
