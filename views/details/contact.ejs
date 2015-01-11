@@ -45,18 +45,16 @@
     </nav>
 
     <div class="container">
-        <form action="MAILTO:victor.silva.morais@gmail.com" method="post" enctype="text/plain">
             Name:<br>
-            <input type="text" name="name" value="your name"><br>
+            <input id="name" type="text" name="name" value="your name"><br>
             E-mail:<br>
             <input type="text" name="mail" value="your email"><br>
             Comment:<br>
             <input type="text" name="comment" value="your comment" size="50"><br><br>
-            <input type="submit" value="Send">
+            <button onclick="sendMail(name)">Send</button>
             <input type="reset" value="Reset">
-        </form>
 
-        <button onclick="sendMail()">Test</button>
+        
     </div>
     <!-- /.container -->
     <script src="javascripts/mail.js"></script>

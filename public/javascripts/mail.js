@@ -1,4 +1,5 @@
-var sendMail = function() {
+var sendMail = function(name, email, coment) {
+	console.log(name);
     $.ajax({
       type: 'POST',
       url: 'https://mandrillapp.com/api/1.0/messages/send.json',
