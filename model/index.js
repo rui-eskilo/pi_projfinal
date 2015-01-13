@@ -3,15 +3,17 @@ var config = require('./../config.json');
 var connString = config.db.connString;
 
 
-function Queixinha(id, estado, categoria, criador, geo, descricao)
+function Queixinha(id, state, cat, owner, geoRef, description)
 {
 	this.id = id;
-	this.state = estado;
-	this.description = descricao;
-	this.owner = criador;
-	this.cat = categoria;
-	this.geoRef = geo;
+	this.state = state;
+	this.description = description;
+	this.owner = owner;
+	this.cat = cat;
+	this.geoRef = geoRef;
 }
+
+module.exports.Queixinha = Queixinha;
 
 
 
@@ -56,5 +58,23 @@ module.exports.getById = function(id, cb)
 			}
 		);
 	});
+}
 
+
+module.exports.create = function(queixinha, cb)
+{
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+
+		client.query("INSERT INTO queixinha(estado, categoria, criador, georeferencia, descricao) VALUES($1, $2, $3, $4, $5)",
+			[queixinha.state, queixinha.cat, queixinha.owner, queixinha.geoRef, queixinha.description],
+			function(err, result)
+			{
+				if(err) return cb(err);
+				if(result.rowCount != 1) return cb(new Error("Error updating database..."));
+				cb(null);
+			}
+		);
+	});
 }

@@ -3,7 +3,7 @@
 ================================================== -->
   <body>
     <!-- style need to go to css -->
-    <div class="brand"><span><img style="width: 5%;border: 0px;" src="../images/queixinhas.png" alt="">queixinhas</span></div>
+    <div class="brand"><span><img style="width: 5%;border: 0px;" src="images/queixinhas.png" alt="">queixinhas</span></div>
 
     <!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
@@ -32,7 +32,7 @@
                         <a href="/contact">Contact</a>
                     </li>
                     <li>
-                        <a href="/queixinhas">Listagem</a>
+                        <a href="/queixinhas/new">Nova Queixinha</a>
                     </li>
                     <li>
                         <a href="/login">Login</a>
@@ -44,20 +44,33 @@
         <!-- /.container -->
     </nav>
 
-     <div class="row">
-        <div class="box">
-            <div class="col-lg-12">
-                <h1><%= queixinha.description %></h1>
-                    <b>
-                    <small><%= queixinha.cat %></small>
-                    </b><br>
-                    <small><%= queixinha.owner %></small><br>
-                    <small><%= queixinha.geoRef %></small><br>
-                    <small><%= queixinha.state ? "ABERTO" : "FECHADO"%></small><br>
+    <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                    <h2>Criar nova Queixinha</h2>
+                    <form class="form-horizontal" method="POST">
+                      <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">Título</label>
+                        <div class="col-sm-10">
+                          <input type="text" class="form-control" id="title" required name="title" placeholder="Titulo">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="description" class="col-sm-2 control-label">Descrição</label>
+                        <div class="col-sm-10">
+                          <textarea class="form-control" name="description" required></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="submit" class="btn btn-success">Criar</button>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
             </div>
         </div>
-    </div>
-
 
     <!-- /.container -->
 <% include ./../_layouts/footer %>

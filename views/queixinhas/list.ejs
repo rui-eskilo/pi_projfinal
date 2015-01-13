@@ -1,4 +1,4 @@
-<% include ../_layouts/head %>
+<% include ./../_layouts/head %>
 <!-- NAVBAR
 ================================================== -->
   <body>
@@ -32,7 +32,7 @@
                         <a href="/contact">Contact</a>
                     </li>
                     <li>
-                        <a href="/register">Register</a>
+                        <a href="/queixinhas/new">Nova Queixinha</a>
                     </li>
                     <li>
                         <a href="/login">Login</a>
@@ -55,7 +55,7 @@
 
                         <li id="queixinha-<%=queixinha.id%>" class="queixinha" >
                             <b>
-                                <a href="/queixinhas/<%=queixinha.id%>"><%= queixinha.description %></a>
+                                <a href="/queixinhas/queixinha/<%=queixinha.id%>"><%= queixinha.description %></a>
                             </b><br>
                             <small><%= queixinha.owner %></small>
                         </li>
@@ -66,4 +66,4 @@
         </div>
 
     <!-- /.container -->
-<% include ../_layouts/footer %>
+<% include ./../_layouts/footer %>
