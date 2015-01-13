@@ -34,6 +34,7 @@ module.exports.allQueixinhas = function(cb)
 				cb(null, queixinhas);
 			}
 		);
+		done();
 	});
 
 }
@@ -67,13 +68,13 @@ module.exports.create = function(queixinha, cb)
 
 		if(err) return cb(err);
 
-		client.query("INSERT INTO queixinha(estado, categoria, criador, georeferencia, descricao) VALUES($1, $2, $3, $4, $5)",
+		client.query("INSERT INTO queixinha(estado, categoria, criador, georeferencia, descricao) VALUES($1, $2, $3, $4, $5) RETURNING id",
 			[queixinha.state, queixinha.cat, queixinha.owner, queixinha.geoRef, queixinha.description],
 			function(err, result)
 			{
 				if(err) return cb(err);
 				if(result.rowCount != 1) return cb(new Error("Error updating database..."));
-				cb(null);
+				cb(null, result.rows[0]);
 			}
 		);
 	});
