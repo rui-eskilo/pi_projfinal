@@ -45,16 +45,23 @@
     </nav>
 
     <div class="container">
-            Name:<br>
-            <input id="name" type="text" name="name" value="your name"><br>
-            E-mail:<br>
-            <input type="text" name="mail" value="your email"><br>
-            Comment:<br>
-            <input type="text" name="comment" value="your comment" size="50"><br><br>
-            <button onclick="sendMail(name)">Send</button>
-            <input type="reset" value="Reset">
-
-        
+        <div id="page-login" class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-3">
+                <div class="box">
+                    <div class="box-content">
+                        <hr>
+                        <h2 class="intro-text text-center">
+                            <strong>Contact</strong> us!
+                        </h2>
+                        <hr>
+                        <input id="name" type="text" class="form-control" name="name" value="your name"><br>
+                        <input type="email" name="mail" class="form-control" value="your email"><br>
+                        <textarea rows="6" type="text" class="form-control" name="comment"></textarea><br>
+                        <button class="btn btn-default btn-lg" onclick="sendMail(name)">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>        
     </div>
     <!-- /.container -->
     <script src="javascripts/mail.js"></script>

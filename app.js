@@ -4,20 +4,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var routes = require('./routes');
-var users = require('./routes/users');
-var about = require('./routes/details/about');
-var contact = require('./routes/details/contact');
-var login = require('./routes/login');
-var queixinhas = require('./routes/queixinhas');
-var register = require('./routes/register');
+var session = require('express-session')
 var app = express();
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+var routes = require('./routes');
+var about = require('./routes/details/about')(app);
+var contact = require('./routes/details/contact')(app);
+var login = require('./routes/login')(app);
+var queixinhas = require('./routes/queixinhas');
+var register = require('./routes/register')(app);
 
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -28,24 +27,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/about', about);
-app.use('/contact', contact);
-app.use('/login', login);
-
 app.use('/queixinhas', queixinhas);
 
+//auth
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true }));
+app.use(require('passport').initialize());
+app.use(require('passport').session());
 
-app.use('/register', register);
-
-// catch 404 and forward to error handler
+//app.use('/register', register);
+//catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace
@@ -68,6 +63,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
