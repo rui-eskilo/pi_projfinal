@@ -7,16 +7,16 @@ var bodyParser = require('body-parser');
 var session = require('express-session')
 var app = express();
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 var routes = require('./routes');
 var about = require('./routes/details/about')(app);
 var contact = require('./routes/details/contact')(app);
 var login = require('./routes/login')(app);
 var queixinhas = require('./routes/queixinhas');
 var register = require('./routes/register')(app);
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(__dirname + '/public/favicon.ico'));
