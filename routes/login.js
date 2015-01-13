@@ -23,7 +23,7 @@ module.exports = function(app) {
     // Configure HTTP routes
 
     app.get('/login', function(req, res) {
-        return res.render('auth/login');
+        return res.render('login');
     });
 
     app.post('/login', passport.authenticate('local', {
