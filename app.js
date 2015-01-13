@@ -40,6 +40,11 @@ app.use('/login', login);
 app.use('/queixinhas', queixinhas);
 
 //auth
+
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
@@ -54,12 +59,6 @@ passport.use(new LocalStrategy(
     });
   }
 ));
-
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
