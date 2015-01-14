@@ -25,15 +25,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+
 app.use('/queixinhas', queixinhas);
 
-app.use(require('express-session')({ secret: 'ThyZ is a big secret!: cat', resave: false, saveUninitialized: true }));
+app.use(require('express-session')({ secret: 'canyoukeepasecretpressonetoyesandtwotono', resave: false, saveUninitialized: true }));
 app.use(require('passport').initialize());
 app.use(require('passport').session());
 var login = require('./login')(app);
 
-//app.use('/register', register);
+app.use('/', routes);
+
 //catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
