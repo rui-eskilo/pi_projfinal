@@ -38,11 +38,12 @@ queixinhasRouter.post('/new', function(req, res, next)
 		if(!title || !description) return res.status(400).send("Invalid data.");
 
 		var q = new db.Queixinha(null, true, 1, 1, "Lisboa", description);
-	  	db.create(q, function(err)
+	  	db.createQueixinha(q, function(err, id)
 	  	{
 	  		if(err) return next(err);
 
-	  		return res.redirect('/queixinhas/queixinha/' + q.id);
+	  		var redirect = '/queixinhas/queixinha/' + id.id;
+	  		return res.redirect(redirect);
 	  	});
 	});
 
