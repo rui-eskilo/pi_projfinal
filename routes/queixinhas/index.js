@@ -38,7 +38,7 @@ queixinhasRouter.post('/new', function(req, res, next)
 		if(!title || !description) return res.status(400).send("Invalid data.");
 
 		var q = new db.Queixinha(null, true, 1, 1, "Lisboa", description);
-	  	db.create(q, function(err, id)
+	  	db.createQueixinha(q, function(err, id)
 	  	{
 	  		if(err) return next(err);
 
