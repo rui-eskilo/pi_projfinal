@@ -31,9 +31,17 @@ p {
     color: #000;
 }
 
+
 hr {
     max-width: 400px;
     border-color: #999999;
+}
+
+.p-centered {
+    font-size: 1.25em;
+    line-height: 1.6;
+    color: #898888;
+    text-align: center;
 }
 
 .brand,

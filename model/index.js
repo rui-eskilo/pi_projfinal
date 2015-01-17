@@ -30,7 +30,7 @@ module.exports.allQueixinhas = function(cb)
 				if(err) return cb(err);
 
 				var queixinhas = result.rows.map(function(row) {
-					return new Queixinha(row.id, row.state, row.category, row.nickname, row.georef, row.title, row.descripcion);
+					return new Queixinha(row.id, row.state, row.category, row.nickname, row.georef, row.title, row.description);
 				});
 				cb(null, queixinhas);
 			}
@@ -55,7 +55,7 @@ module.exports.getById = function(id, cb)
 				if(err) return cb(err);
 
 				var queixinha = new Queixinha(result.rows[0].id, result.rows[0].state, result.rows[0].category, 
-					result.rows[0].nickname, result.rows[0].georef, result.rows[0].title, result.rows[0].descripcion);
+					result.rows[0].nickname, result.rows[0].georef, result.rows[0].title, result.rows[0].description);
 				cb(null, queixinha);
 			}
 		);
