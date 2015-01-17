@@ -1,0 +1,6 @@
+<% include /head %>
+<% if(user.isAuthenticated) { %>
+    <% include /top_bar_after_auth %>
+<% } else { %>
+    <% include /top_bar_before_auth %>
+<% }%>
