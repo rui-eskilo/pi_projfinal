@@ -16,20 +16,6 @@ queixinhasRouter.get('/', function(req, res, next){
 	});
 
 
-queixinhasRouter.get('/queixinha/:id', injectQueixinhaInRequest, function(req, res){
-		
-		res.render('queixinhas/single', { queixinha: req.models.queixinha });
-	});
-
-
-queixinhasRouter.get('/new', function(req, res)
-	{
-		//var q = new db.Queixinha();
-	  	res.render('queixinhas/new', {queixinha : {}});
-	});
-
-
-
 queixinhasRouter.post('/new', function(req, res, next)
 	{
 		var title = req.body.title;

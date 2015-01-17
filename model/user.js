@@ -22,9 +22,7 @@ module.exports.findUser = function(username, cb) {
 			function(err, result)
 			{
 				if(err) return cb(err);
-				console.log(result.rows[0]);
 				var user = new User(result.rows[0].id, result.rows[0].username, result.rows[0].password, result.rows[0].nickname, result.rows[0].email);
-				console.log(user);
 				cb(null, user);
 			}
 		);
