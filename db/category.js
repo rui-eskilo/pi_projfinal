@@ -8,7 +8,9 @@ var connString = config.db.connString;
 }
 module.exports.Category = Category;
 
-module.exports.getAll = function(cb) {
+
+
+module.exports.getAllCats = function(cb) {
 	console.log("Enter");
 	pg.connect(connString, function(err, client, done) {
 		if(err) return cb(err);

@@ -18,7 +18,7 @@ module.exports.Queixinha = Queixinha;
 
 
 
-module.exports.allQueixinhas = function(cb)
+module.exports.getAllQueixinhas = function(cb)
 {
 	pg.connect(connString, function(err, client, done) {
 
@@ -41,8 +41,7 @@ module.exports.allQueixinhas = function(cb)
 }
 
 
-
-module.exports.getById = function(id, cb)
+module.exports.getQueixinhaById = function(id, cb)
 {
 	pg.connect(connString, function(err, client, done) {
 
@@ -80,3 +79,4 @@ module.exports.createQueixinha = function(queixinha, cb)
 		);
 	});
 }
+
