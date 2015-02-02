@@ -13,7 +13,7 @@ module.exports.getAll = function(cb) {
 	pg.connect(connString, function(err, client, done) {
 		if(err) return cb(err);
 
-		client.query("select * from category ",
+		client.query("SELECT * FROM category",
 			function(err, result)
 			{
 				var cat = result.rows.map(function(row) {
