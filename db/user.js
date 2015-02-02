@@ -30,7 +30,7 @@ module.exports.findUser = function(username, cb) {
 }
 
 
-module.exports.findById = function(id, cb) {
+module.exports.findUserById = function(id, cb) {
 	pg.connect(connString, function(err, client, done) {
 
 		if(err) return cb(err);

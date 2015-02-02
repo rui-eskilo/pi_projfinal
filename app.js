@@ -27,12 +27,10 @@ var login = require('./login')(app);
 var routes = require('./routes/index.js');
 var about = require('./routes/details/about')(app);
 var contact = require('./routes/details/contact')(app);
-var queixinhas = require('./routes/queixinhas');
-var queixinhaNew = require('./routes/queixinhas/new')(app);
+var queixinhas = require('./routes/queixinhas')(app);
 var register = require('./routes/register')(app);
 var dashboard = require('./routes/dashboard')(app);
 
-app.use('/queixinhas', queixinhas);
 app.use('/', routes);
 
 //catch 404 and forward to error handler

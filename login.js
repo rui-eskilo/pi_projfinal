@@ -1,6 +1,6 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('./model/user');
+var User = require('./db/user');
 
 passport.use(new LocalStrategy(
     function(username, password, done)
@@ -21,7 +21,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
     console.log("deserializeUser");
-    User.findById(id, function(err, user) {
+    User.findUserById(id, function(err, user) {
         if(err) return done(err);
         user.isAuthenticated = true;
         return done(null, user);
