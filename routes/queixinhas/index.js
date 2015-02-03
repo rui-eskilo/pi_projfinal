@@ -7,8 +7,8 @@ var queixinhasRouter = express.Router();
 var passport = require('passport');
 
 
-queixinhasRouter.get('/', isLoggedIn,function(req, res, next){
-
+queixinhasRouter.get('/', isLoggedIn, function(req, res, next){
+		console.log('duhhh');
 		queixinhaDB.getAllQueixinhas(function(err, allQueixinhas)
 		{
 			if(err) return next(err); // res.status(500).send("OMG! Server Error.");
@@ -104,8 +104,8 @@ function injectQueixinhaInRequest(req, res, next)
 }
 
 function isLoggedIn(req, res, next) {
-	if(!req.user || !req.user.isAuthenticated) {
-		res.redirect('/login');
+	if(req.user && req.user.isAuthenticated) {
+		return next();
 	}
-	next();
+	res.redirect('/login');
 }
