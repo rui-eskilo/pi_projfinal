@@ -2,9 +2,10 @@ var db = require("./../../db/queixinha");
 var category = require('./../../db/category');
 var express = require('express');
 var queixinhasRouter = express.Router();
+var passport = require('passport');
 
 
-queixinhasRouter.get('/', function(req, res, next){
+queixinhasRouter.get('/', isLoggedIn,function(req, res, next){
 
 		db.getAllQueixinhas(function(err, allQueixinhas)
 		{
@@ -83,4 +84,11 @@ function injectQueixinhaInRequest(req, res, next)
 		req.models.queixinha = queixinha;
 		next();
 	});
+}
+
+function isLoggedIn(req, res, next) {
+	if(!req.user || !req.user.isAuthenticated) {
+		res.redirect('/login');
+	}
+	next();
 }
