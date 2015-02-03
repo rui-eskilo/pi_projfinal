@@ -7,7 +7,7 @@ var connString = config.db.connString;
 function Vote(id, value, queixinha, dbuser)
 {
 	this.id = id;
-	this.value = state;
+	this.value = value;
 	this.queixinha = queixinha;
 	this.dbuser = dbuser;
 }
@@ -54,17 +54,18 @@ module.exports.getListVotesByQueixinha = function(id, cb){
 }
 
 
-module.exports.insertVote = function(value, queixinha, user, cb){
+module.exports.insertVote = function(vote, cb){
 
 	pg.connect(connString, function(err, client, done){
 
 		if(err) return cb(err);
-		client.query("insert into vote(value, queixinha, dbuser) VALUES ($1, $2, $3)", [value, queixinha, user], function(){
-
-			done();
-			if(err) return cb(err);
-			if(result.rowCount != 1) return cb(new Error("Error updating database..."));
-			cb(null, result.rows[0]);
+		client.query("insert into vote(value, queixinha, dbuser) VALUES ($1, $2, $3)", 
+			[vote.value, vote.queixinha, vote.dbuser],
+			 function(err, result){
+				done();
+				if(err) return cb(err);
+				if(result.rowCount != 1) return cb(new Error("Error updating database..."));
+				cb(null, result.rows[0]);
 		});
 	});
 }

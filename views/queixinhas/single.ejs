@@ -29,11 +29,17 @@
                     <small><%= votes.no %></small>
                 <% } else {%>
                     <form style='display:inline' id="frmYes" action="/vote/new" method="POST">
-                        <a href=""><i class="fa fa-thumbs-up fa-2x"></i></a>
+                        <input type="hidden" name="dbuser" value="3">
+                        <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
+                        <input type="hidden" name="vote" value="true">
+                        <a href="#" onclick="document.getElementById('frmYes').submit()"><i class="fa fa-thumbs-up fa-2x"></i></a>
                         <small><%= votes.yes %></small>
                     </form>
                     <form style='display:inline' id="frmNo" action="/vote/new" method="POST">
-                        <a href=""><i class="fa fa-thumbs-down fa-2x"></i></a>
+                        <input type="hidden" name="dbuser" value="<%=user.id%>">
+                        <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
+                        <input type="hidden" name="vote" value="false">
+                        <a href="#" onclick="document.getElementById('frmNo').submit()"><i class="fa fa-thumbs-down fa-2x"></i></a>
                         <small><%= votes.no %></small>
                     </form>
                 <%}%>
@@ -71,7 +77,8 @@
 
         <div class="row">
             <form class="form-horizontal" action="/commentary/new" method="POST">
-                <input type="hidden" name="dbuser" value="<%=user.id%>">
+                <input type="hidden" name="dbuser" value="2">
+                <!--<input type="hidden" name="dbuser" value="<%=user.id%>"> -->
                 <input type="hidden" name="georef" value="<%=queixinha.geoRef%>">
                 <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
                 <div class="form-group">
