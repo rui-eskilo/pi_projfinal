@@ -28,6 +28,7 @@ var routes = require('./routes/index.js');
 var about = require('./routes/details/about')(app);
 var contact = require('./routes/details/contact')(app);
 var queixinhas = require('./routes/queixinhas')(app);
+var commentary = require('./routes/commentary')(app);
 var register = require('./routes/register')(app);
 var dashboard = require('./routes/dashboard')(app);
 

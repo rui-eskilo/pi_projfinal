@@ -11,13 +11,14 @@ module.exports.Category = Category;
 
 
 module.exports.getAllCats = function(cb) {
-	console.log("Enter");
+	
 	pg.connect(connString, function(err, client, done) {
 		if(err) return cb(err);
 
 		client.query("select * from category ",
 			function(err, result)
 			{
+				done();
 				var cat = result.rows.map(function(row) {
 					console.log(row.description);
 					return new Category(row.id, row.description);

@@ -27,6 +27,7 @@ module.exports.getAllQueixinhas = function(cb)
 		client.query("SELECT q.id AS id, state, c.description AS category, nickname, georef, title, q.description FROM queixinha AS q JOIN dbuser AS u ON q.owner=u.id JOIN category AS c ON q.category=c.id",
 			function(err, result)
 			{
+				done();
 				if(err) return cb(err);
 
 				var queixinhas = result.rows.map(function(row) {
@@ -35,10 +36,9 @@ module.exports.getAllQueixinhas = function(cb)
 				cb(null, queixinhas);
 			}
 		);
-		done();
 	});
-
 }
+
 
 
 module.exports.getQueixinhaById = function(id, cb)
@@ -51,6 +51,7 @@ module.exports.getQueixinhaById = function(id, cb)
 			[id],
 			function(err, result)
 			{
+				done();
 				if(err) return cb(err);
 
 				var queixinha = new Queixinha(result.rows[0].id, result.rows[0].state, result.rows[0].category, 
@@ -60,6 +61,7 @@ module.exports.getQueixinhaById = function(id, cb)
 		);
 	});
 }
+
 
 
 module.exports.createQueixinha = function(queixinha, cb)
@@ -72,6 +74,7 @@ module.exports.createQueixinha = function(queixinha, cb)
 			[queixinha.state, queixinha.cat, queixinha.owner, queixinha.geoRef, queixinha.title, queixinha.description],
 			function(err, result)
 			{
+				done();
 				if(err) return cb(err);
 				if(result.rowCount != 1) return cb(new Error("Error updating database..."));
 				cb(null, result.rows[0]);
