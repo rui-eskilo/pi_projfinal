@@ -1,5 +1,7 @@
-var db = require("./../../db/queixinha");
-var category = require('./../../db/category');
+var queixinhaDB = require('./../../db/queixinha');
+var categoryDB = require('./../../db/category');
+var commentaryDB = require('./../../db/comment');
+var voteDB = require('./../../db/vote');
 var express = require('express');
 var queixinhasRouter = express.Router();
 var passport = require('passport');
@@ -7,7 +9,7 @@ var passport = require('passport');
 
 queixinhasRouter.get('/', isLoggedIn,function(req, res, next){
 
-		db.getAllQueixinhas(function(err, allQueixinhas)
+		queixinhaDB.getAllQueixinhas(function(err, allQueixinhas)
 		{
 			if(err) return next(err); // res.status(500).send("OMG! Server Error.");
 
@@ -20,17 +22,32 @@ queixinhasRouter.get('/', isLoggedIn,function(req, res, next){
 queixinhasRouter.get('/:id(\\d*)', function(req, res, next){
 
 		var id = req.params.id;
-		db.getQueixinhaById(id, function(err, queixinha){
-			if(err) return next(err); // res.status(500).send("OMG! Server Error.");
+		var model = {};
 
-			var model = { queixinha: queixinha };
-	  		res.render('queixinhas/single', model );
-	  	});
+		// Mudar para Async !!!!!
+		queixinhaDB.getQueixinhaById(id, function(err, queixinha){
+			if(err) return next(err);
+			model.queixinha = queixinha;
+			commentaryDB.getAllCommentsFromQueixinha(id, function(err, comments){
+				if(err) return next(err);
+				model.comments = comments;
+				voteDB.getListVotesByQueixinha(id, function(err, votes){
+					if(err) return next(err);
+					model.votes = votes;
+					voteDB.isQueixinhaVotedByUser(id, 1, function(err, bool){
+						if(err) return next(err);
+						model.isVoted = bool;
+						res.render('queixinhas/single', model);
+					});
+					
+				});
+			});
+		});
 	});
 
 
 queixinhasRouter.get('/new', function(req, res, next) {
-		category.getAllCats(function(err, catgs){
+		categoryDB.getAllCats(function(err, catgs){
 			if(err) return next(err);
 			var model = {categories: catgs};
 			console.log("model", model);
@@ -52,8 +69,8 @@ queixinhasRouter.post('/new', function(req, res, next)
 		var geo = req.body.geoRef;
 
 		//Falta subestituir o owner pelo user corrente !!!!!
-		var q = new db.Queixinha(null, true, cat, 1, geo, title, description);
-	  	db.createQueixinha(q, function(err, id)
+		var q = new queixinhaDB.Queixinha(null, true, cat, 1, geo, title, description);
+	  	queixinhaDB.createQueixinha(q, function(err, id)
 	  	{
 	  		if(err) return next(err);
 	  		var redirect = '/queixinhas/' + id.id;
@@ -78,7 +95,7 @@ module.exports = function(app){
 function injectQueixinhaInRequest(req, res, next)
 {
 	var id = req.params.id;
-	db.getById(id, function(err, queixinha) {
+	queixinhaDB.getById(id, function(err, queixinha) {
 		if(err) return res.status(404).send("QUEIXINHA " + id + " not found!!!!.");
 		req.models = req.models || {};
 		req.models.queixinha = queixinha;

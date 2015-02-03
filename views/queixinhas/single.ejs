@@ -21,73 +21,69 @@
                 <small><%= queixinha.cat %></small>
             </div>
             <div class="col-lg-2">
-                <a href=""><i class="fa fa-thumbs-up fa-2x"></i></a>
-                <a href=""><i class="fa fa-thumbs-down fa-2x" href=""></i></a>
+
+                <% if(isVoted){ %>
+                    <i class="fa fa-thumbs-up fa-2x"></i>
+                    <small><%= votes.yes %></small>
+                    <i class="fa fa-thumbs-down fa-2x"></i>
+                    <small><%= votes.no %></small>
+                <% } else {%>
+                    <form style='display:inline' id="frmYes" action="/vote/new" method="POST">
+                        <input type="hidden" name="dbuser" value="3">
+                        <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
+                        <input type="hidden" name="vote" value="true">
+                        <a href="#" onclick="document.getElementById('frmYes').submit()"><i class="fa fa-thumbs-up fa-2x"></i></a>
+                        <small><%= votes.yes %></small>
+                    </form>
+                    <form style='display:inline' id="frmNo" action="/vote/new" method="POST">
+                        <input type="hidden" name="dbuser" value="<%=user.id%>">
+                        <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
+                        <input type="hidden" name="vote" value="false">
+                        <a href="#" onclick="document.getElementById('frmNo').submit()"><i class="fa fa-thumbs-down fa-2x"></i></a>
+                        <small><%= votes.no %></small>
+                    </form>
+                <%}%>
             </div>
         </div>
     </div>
 
     <div class="box" style="padding-top: 10px; padding-bottom: 10px;">
+
+        <% comments.forEach(function(comm) { %>
+
         <div class="panel panel-default" style="margin-bottom: 0px">
-            <div class="panel-body" style="background-color:rgb(170, 170, 207)">Este trabalho já me está a dar uns calores que nem sabes !!!!</div>
+            <div class="panel-body" style="background-color:rgb(170, 170, 207)"><%= comm.description %></div>
             <div class="panel-footer" style="background-color: azure">
                 <div class="row">
                     <div class="col-md-2">
                         <i class="fa fa-male"></i>
-                        <small><%= queixinha.owner %></small>
+                        <small><%= comm.dbuser %></small>
                     </div>
                     <div class="col-lg-2">
                         <i class="fa fa-globe"></i>
                         <small><%= queixinha.geoRef %></small>
                     </div>
-                </div>  
-            </div>
-        </div>
-
-    </br>
-
-        <div class="panel panel-default" style="margin-bottom: 0px">
-            <div class="panel-body" style="background-color:rgb(170, 170, 207)">Sei sei.... e ainda falta o exame !!!!</div>
-            <div class="panel-footer" style="background-color: azure">
-                <div class="row">
-                    <div class="col-md-2">
-                        <i class="fa fa-male"></i>
-                        <small><%= queixinha.owner %></small>
-                    </div>
                     <div class="col-lg-2">
-                        <i class="fa fa-globe"></i>
-                        <small><%= queixinha.geoRef %></small>
+                        <i class="fa fa-calendar"></i>
+                        <small><%= comm.insertdate %></small>
                     </div>
                 </div>  
             </div>
         </div>
     </br>
-
-        <div class="panel panel-default" style="margin-bottom: 0px">
-            <div class="panel-body" style="background-color:rgb(170, 170, 207)">Sei sei.... e ainda falta o exame !!!!</div>
-            <div class="panel-footer" style="background-color: azure">
-                <div class="row">
-                    <div class="col-md-2">
-                        <i class="fa fa-male"></i>
-                        <small><%= queixinha.owner %></small>
-                    </div>
-                    <div class="col-lg-2">
-                        <i class="fa fa-globe"></i>
-                        <small><%= queixinha.geoRef %></small>
-                    </div>
-                </div>  
-            </div>
-        </div>
-
-
+    <% }) %>
 
         <div class="row"><hr></div>
 
         <div class="row">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="/commentary/new" method="POST">
+                <input type="hidden" name="dbuser" value="2">
+                <!--<input type="hidden" name="dbuser" value="<%=user.id%>"> -->
+                <input type="hidden" name="georef" value="<%=queixinha.geoRef%>">
+                <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
                 <div class="form-group">
                     <div class="col-lg-12">
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea class="form-control" name="description" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -98,11 +94,6 @@
             </form>
         </div>
     </div>
-  
-
-
-        
-
 
     <!-- /.container -->
 <% include ./../_layouts/footer %>
