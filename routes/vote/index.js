@@ -5,7 +5,7 @@ var voteRouter = express.Router();
 
 
 
-voteRouter.post('/new', function(req, res, next)
+voteRouter.post('/new', isLoggedIn, function(req, res, next)
 	{
 		var dbuser = req.body.dbuser;
 		var queixinha = req.body.queixinha;
@@ -29,4 +29,15 @@ voteRouter.post('/new', function(req, res, next)
 module.exports = function(app){
 
 	app.use('/vote', voteRouter)
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+function isLoggedIn(req, res, next) {
+	if(!req.user || !req.user.isAuthenticated) {
+		res.redirect('/login');
+	}
+	next();
 }

@@ -5,23 +5,47 @@ var voteDB = require('./../../db/vote');
 var express = require('express');
 var queixinhasRouter = express.Router();
 var passport = require('passport');
+global.mycount = 0;
 
 
-queixinhasRouter.get('/', isLoggedIn,function(req, res, next){
+queixinhasRouter.get('/', isLoggedIn, function(req, res, next){
 
-		queixinhaDB.getAllQueixinhas(function(err, allQueixinhas)
-		{
-			if(err) return next(err); // res.status(500).send("OMG! Server Error.");
 
-			var model = { queixinhas: allQueixinhas };
-	  		res.render('queixinhas/list', model );
+		var start = parseInt(req.query.start);
+
+		if(!start){ 
+
+			queixinhaDB.getTotalNumberQueixinhas(function(err, total){
+
+				if(err) return next(err);
+				var tmp = parseInt(total);
+				global.mycount = tmp;
+				queixinhaDB.getQueixinhasPage(1, function(err, allQueixinhas)
+				{
+					if(err) return next(err); // res.status(500).send("OMG! Server Error.");
+					var model = { queixinhas: allQueixinhas, start: 1, count: global.mycount };
+		  			res.render('queixinhas/list', model );
+		  		});
+			});
+		}
+		else{
+			queixinhaDB.getQueixinhasPage(start, function(err, allQueixinhas)
+			{
+				if(err) return next(err); // res.status(500).send("OMG! Server Error.");
+
+				var model = { queixinhas: allQueixinhas, start: start, count: global.mycount };
+	  			res.render('queixinhas/list', model );
 		});
+	}
+});
 
-	});
 
-queixinhasRouter.get('/:id(\\d*)', function(req, res, next){
+		
+
+queixinhasRouter.get('/:id(\\d*)', isLoggedIn, function(req, res, next){
 
 		var id = req.params.id;
+		var user = req.user;
 		var model = {};
 
 		// Mudar para Async !!!!!
@@ -34,7 +58,7 @@ queixinhasRouter.get('/:id(\\d*)', function(req, res, next){
 				voteDB.getListVotesByQueixinha(id, function(err, votes){
 					if(err) return next(err);
 					model.votes = votes;
-					voteDB.isQueixinhaVotedByUser(id, 1, function(err, bool){
+					voteDB.isQueixinhaVotedByUser(id, user.id, function(err, bool){
 						if(err) return next(err);
 						model.isVoted = bool;
 						res.render('queixinhas/single', model);
@@ -46,7 +70,7 @@ queixinhasRouter.get('/:id(\\d*)', function(req, res, next){
 	});
 
 
-queixinhasRouter.get('/new', function(req, res, next) {
+queixinhasRouter.get('/new', isLoggedIn, function(req, res, next) {
 		categoryDB.getAllCats(function(err, catgs){
 			if(err) return next(err);
 			var model = {categories: catgs};
@@ -56,7 +80,7 @@ queixinhasRouter.get('/new', function(req, res, next) {
     });
 
 
-queixinhasRouter.post('/new', function(req, res, next)
+queixinhasRouter.post('/new', isLoggedIn, function(req, res, next)
 	{
 		var title = req.body.title;
 

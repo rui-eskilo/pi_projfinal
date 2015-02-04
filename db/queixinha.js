@@ -18,6 +18,27 @@ module.exports.Queixinha = Queixinha;
 
 
 
+
+module.exports.getTotalNumberQueixinhas = function(cb){
+
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+
+		client.query("SELECT count(*) FROM queixinha",
+			function(err, result)
+			{
+				done();
+				if(err) return cb(err);
+
+				var res = result.rows[0].count;
+				cb(null, res);
+			}
+		);
+	});
+}
+
+
 module.exports.getAllQueixinhas = function(cb)
 {
 	pg.connect(connString, function(err, client, done) {
@@ -25,6 +46,29 @@ module.exports.getAllQueixinhas = function(cb)
 		if(err) return cb(err);
 
 		client.query("SELECT q.id AS id, state, c.description AS category, nickname, georef, title, q.description FROM queixinha AS q JOIN dbuser AS u ON q.owner=u.id JOIN category AS c ON q.category=c.id",
+			function(err, result)
+			{
+				done();
+				if(err) return cb(err);
+
+				var queixinhas = result.rows.map(function(row) {
+					return new Queixinha(row.id, row.state, row.category, row.nickname, row.georef, row.title, row.description);
+				});
+				cb(null, queixinhas);
+			}
+		);
+	});
+}
+
+
+module.exports.getQueixinhasPage = function(start, cb)
+{
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+
+		client.query("SELECT q.id AS id, state, c.description AS category, nickname, georef, title, q.description FROM queixinha AS q JOIN dbuser AS u ON q.owner=u.id JOIN category AS c ON q.category=c.id WHERE q.id>=$1 AND q.id<$2",
+			[start, start+5],
 			function(err, result)
 			{
 				done();
