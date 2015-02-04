@@ -1,3 +1,4 @@
+
 var sendMail = function(name, email, coment) {
 	console.log(name);
     $.ajax({
@@ -19,6 +20,6 @@ var sendMail = function(name, email, coment) {
         }
       }
      }).done(function(response) {
-       console.log(response); // if you're into that sorta thing
+       alert('Enviado');
      });
 };

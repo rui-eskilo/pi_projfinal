@@ -10,7 +10,6 @@ global.mycount = 0;
 
 queixinhasRouter.get('/', isLoggedIn, function(req, res, next){
 
-
 		var start = parseInt(req.query.start);
 
 		if(!start){ 
@@ -38,7 +37,6 @@ queixinhasRouter.get('/', isLoggedIn, function(req, res, next){
 		});
 	}
 });
-
 
 		
 
@@ -128,8 +126,8 @@ function injectQueixinhaInRequest(req, res, next)
 }
 
 function isLoggedIn(req, res, next) {
-	if(!req.user || !req.user.isAuthenticated) {
-		res.redirect('/login');
+	if(req.user && req.user.isAuthenticated) {
+		return next();
 	}
-	next();
+	res.redirect('/login');
 }
