@@ -30,6 +30,7 @@ var contact = require('./routes/details/contact')(app);
 var queixinhas = require('./routes/queixinhas')(app);
 var commentary = require('./routes/commentary')(app);
 var dashboard = require('./routes/dashboard')(app);
+var forgot_password = require('./routes/user/forgot_password')(app);
 var vote = require('./routes/vote')(app);
 var register = require('./routes/register')(app);
 
