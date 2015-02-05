@@ -14,7 +14,7 @@ dashboardRouter.get('/', isLoggedIn, function(req, res, next){
 
 		if(err) return next(err);
 		var model = { user: user };
-		res.render('dashboard/initial', {user: user});
+		res.render('dashboard/initial', model);
 
 
 	});
