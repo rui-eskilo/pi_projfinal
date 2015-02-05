@@ -8,24 +8,9 @@ var dashboardRouter = express.Router();
 
 
 dashboardRouter.get('/', isLoggedIn, function(req, res, next){
-
-
-	userDB.findUserById(req.user.id, function(err, user){
-
-		if(err) return next(err);
-		var model = { user: user };
+		var model = { user: req.user };
 		res.render('dashboard/initial', model);
-
-
-	});
 });
-
-
-
-
-
-
-
 
 module.exports = function(app){
 

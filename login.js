@@ -8,6 +8,7 @@ passport.use(new LocalStrategy(
         console.log('Begin Authenticate');
         User.findUser(username, function(err, user){
             if(err) return done(err);
+            user.isAuthenticated = true;
             return done(null, user);
         })
     }
