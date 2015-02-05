@@ -47,14 +47,25 @@ module.exports.findUserById = function(id, cb) {
 	});
 }
 
-<<<<<<< HEAD
 module.exports.findUserByEmail = function(email, cb) {
 	pg.connect(connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
 		client.query("select * from dbuser where email=$1", [email],
-=======
+			function(err, result)
+			{
+				if(result.rows.length === 0) {
+					cb(null, null);
+				} else {
+					var user = new User(result.rows[0].id, result.rows[0].username, result.rows[0].password, result.rows[0].nickname, result.rows[0].email);
+					cb(null, user);
+				}
+			}
+		);
+	});
+}
+
 
 module.exports.changePass = function(id, newpass, cb){
 
@@ -100,23 +111,11 @@ module.exports.changeEmail = function(id, newemail, cb){
 
 		if(err) return cb(err);
 		client.query("UPDATE dbuser SET email=$1 WHERE id=%2", [newemail, id],
->>>>>>> 138c9f6a069b35d09423fecc8c847f9a967ac24b
 			function(err, result)
 			{
 				done();
 				if(err) return cb(err);
-<<<<<<< HEAD
-				if(result.rows.length === 0) {
-					cb(null, null);
-				} else {
-					var user = new User(result.rows[0].id, result.rows[0].username, result.rows[0].password, result.rows[0].nickname, result.rows[0].email);
-					cb(null, user);
-				}
-			}
-		);
-	});
-}
-=======
+
 				cb(null, true);
 
 			});
@@ -124,5 +123,3 @@ module.exports.changeEmail = function(id, newemail, cb){
 
 }
 
-
->>>>>>> 138c9f6a069b35d09423fecc8c847f9a967ac24b
