@@ -12,13 +12,6 @@ dashboardRouter.get('/', isLoggedIn, function(req, res, next){
 		res.render('dashboard/initial', model);
 });
 
-
-
-
-
-
-
-
 module.exports = function(app){
 
 	app.use('/dashboard', dashboardRouter)
