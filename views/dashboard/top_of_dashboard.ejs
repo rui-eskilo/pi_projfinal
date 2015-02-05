@@ -1,0 +1,34 @@
+<div class="box">
+	<div class="row">
+        <hr style="margin-top: 10px">
+        <h2 class="intro-text text-center" style="color: rgb(64, 152, 152)"><%=user.nickname%></h2>
+        <hr>
+    </div>
+
+	<div class="row col-lg-12">
+	    <div class="col-lg-2">
+	        <a href=""><i class="fa fa-user fa-2x"></i></a>
+	        <small><%=user.username%></small>
+	    </div>
+	     <div class="col-lg-2">
+	        <a href=""><i class="fa fa-envelope-o fa-2x"></i></a>
+	        <small><%=user.email%></small>
+	    </div>
+	    <div class="col-lg-2">
+	        <a href=""><i class="fa fa-key fa-2x"></i></a>
+	        <small>ChangePassword</small>
+	    </div>
+	    <div class="col-lg-2">
+	    	<a href=""><i class="fa fa-bell-o fa-2x"></i></a>
+	    	<small>Notificações</small>
+	    </div>
+	    <div class="col-lg-2">
+	    	<a href="/dashboard/followed"><i class="fa fa-eye fa-2x"></i></a>
+	    	<small>Seguidas</small>
+	    </div>
+	    <div class="col-lg-2">
+	    	<a href="/dashboard/myqueixinhas"><i class="fa fa-eye fa-2x"></i></a>
+	    	<small>MyQueixinhas</small>
+	    </div>
+	</div>
+</div>

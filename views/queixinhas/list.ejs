@@ -3,11 +3,7 @@
 <% queixinhas.forEach(function(queixinha) { %>
 
     <div class="box">
-        <% if(queixinha.state) {%>
-            <i class="fa fa-keyboard-o fa-2x"></i>
-        <% }else {%>
-            <i class="fa fa-key fa-2x"></i>
-        <% }%>
+        <i class="fa fa-keyboard-o fa-2x"></i>
         <a href="/queixinhas/<%=queixinha.id%>"><%= queixinha.title %></a>
         </b><br>
         <i class="fa fa-male fa-2x"></i>

@@ -1,0 +1,20 @@
+<% include ./../_layouts/top %>
+<% include ./top_of_dashboard %>
+
+	<div class="box" style="color:green">
+		<h1>Queixinhas Seguidas</h1>
+	</div>
+
+
+<% queixinhas.forEach(function(queixinha) { %>
+
+
+	<div class="box">
+        <i class="fa fa-keyboard-o fa-2x"></i>
+        <a href="/queixinhas/<%=queixinha.id%>"><%= queixinha.title %></a>
+    </div>
+
+<% }) %>
+
+
+<% include ./../_layouts/footer %>
