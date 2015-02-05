@@ -19,13 +19,13 @@ module.exports.Queixinha = Queixinha;
 
 
 
-module.exports.getTotalNumberQueixinhas = function(cb){
+module.exports.getTotalNumberClosedQueixinhas = function(cb){
 
 	pg.connect(connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
-		client.query("SELECT count(*) FROM queixinha",
+		client.query("SELECT count(*) FROM queixinha WHERE state = true",
 			function(err, result)
 			{
 				done();
@@ -67,7 +67,7 @@ module.exports.getQueixinhasPage = function(start, cb)
 
 		if(err) return cb(err);
 
-		client.query("SELECT q.id AS id, state, c.description AS category, nickname, georef, title, q.description FROM queixinha AS q JOIN dbuser AS u ON q.owner=u.id JOIN category AS c ON q.category=c.id WHERE q.id>=$1 AND q.id<$2",
+		client.query("SELECT q.id AS id, state, c.description AS category, nickname, georef, title, q.description FROM queixinha AS q JOIN dbuser AS u ON q.owner=u.id JOIN category AS c ON q.category=c.id WHERE q.state=true AND q.id>=$1 AND q.id<$2 ORDER BY q.id",
 			[start, start+5],
 			function(err, result)
 			{
