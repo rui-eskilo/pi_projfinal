@@ -114,5 +114,11 @@ module.exports.changeEmail = function(id, newemail, cb){
 			{
 				done();
 				if(err) return cb(err);
+				cb(null, true);
+
+			});
+	});
+
+}
 
 		
