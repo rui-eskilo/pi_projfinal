@@ -29,9 +29,10 @@ var about = require('./routes/details/about')(app);
 var contact = require('./routes/details/contact')(app);
 var queixinhas = require('./routes/queixinhas')(app);
 var commentary = require('./routes/commentary')(app);
+var dashboard = require('./routes/dashboard')(app);
 var vote = require('./routes/vote')(app);
 var register = require('./routes/register')(app);
-var dashboard = require('./routes/dashboard')(app);
+
 
 app.use('/', routes);
 

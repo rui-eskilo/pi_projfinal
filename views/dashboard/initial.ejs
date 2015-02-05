@@ -1,0 +1,32 @@
+<% include ./../_layouts/top %>
+
+
+
+<div class="box">
+	<div class="row">
+        <hr style="margin-top: 10px">
+        <h2 class="intro-text text-center" style="color: rgb(64, 152, 152)"><%=user.nickname%></h2>
+        <hr>
+    </div>
+
+	<div class="row col-lg-offset-3">
+	    <div class="col-lg-2">
+	        <i class="fa fa-user fa-2x"></i>
+	        <small>UserName:</small>
+	        <small><%=user.username%></small>
+	    </div>
+	    <div class="col-lg-2">
+	        <i class="fa fa-key fa-2x"></i>
+	        <a href=""><small>ChangePassword</small></a>
+	    </div>
+	     <div class="col-lg-2">
+	        <i class="fa fa-envelope-o fa-2x"></i>
+	        <small>Email:</small>
+	        <small><%=user.email%></small>
+	    </div>
+	</div>
+</div>
+
+
+
+<% include ./../_layouts/footer %>
