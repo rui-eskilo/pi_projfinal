@@ -197,6 +197,26 @@ module.exports.createQueixinha = function(queixinha, cb)
 }
 
 
+module.exports.editQueixinha = function(queixinha, cb)
+{
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+
+		client.query("UPDATE queixinha SET category=$1, georef=$2, title=$3, description=$4 WHERE id=$5",
+			[queixinha.cat, queixinha.geoRef, queixinha.title, queixinha.description, queixinha.id],
+			function(err, result)
+			{
+				done();
+				if(err) return cb(err);
+				if(result.rowCount != 1) return cb(new Error("Error updating database..."));
+				cb(null, result.rows[0]);
+			}
+		);
+	});
+}
+
+
 module.exports.followQueixinha = function(queixinha, user, cb)
 {
 	pg.connect(connString, function(err, client, done) {
@@ -275,14 +295,14 @@ module.exports.openQueixinha = function(queixinha, cb)
 }
 
 
-module.exports.markQueixinhaAsDirty = function(queixinha, cb)
+module.exports.markQueixinhaAsDirty = function(id, cb)
 {
 	pg.connect(connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
 		client.query("UPDATE queixinha_dbuser set dirty=true WHERE queixinha=$1",
-			[queixinha],
+			[id],
 			function(err, result)
 			{
 				done();

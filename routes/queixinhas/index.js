@@ -123,20 +123,25 @@ queixinhasRouter.post('/new', isLoggedIn, function(req, res, next)
 
 queixinhasRouter.post('/edit', isLoggedIn, function(req, res, next)
 	{
+		var id = req.body.id;
 		var title = req.body.title;
 		var description = req.body.description;
 
-		if(!title || !description) return res.status(400).send("Invalid data.");
+		if(!title || !description || !id) return res.status(400).send("Invalid data.");
 
 		var cat = req.body.categoria;
 		var geo = req.body.geoRef;
 
-		var q = new queixinhaDB.Queixinha(null, true, cat, req.user.id, geo, title, description);
-	  	queixinhaDB.createQueixinha(q, function(err, id)
+		var q = new queixinhaDB.Queixinha(id, true, cat, req.user.id, geo, title, description);
+	  	queixinhaDB.editQueixinha(q, function(err, id)
 	  	{
 	  		if(err) return next(err);
-	  		var redirect = '/queixinhas/' + id.id;
-	  		return res.redirect(redirect);
+	  		queixinhaDB.markQueixinhaAsDirty(id, function(err, id){
+	  			if(err) return next(err);
+	  			var redirect = '/dashboard/myqueixinhas';
+	  			return res.redirect(redirect);
+	  		});
+	  		
 	  	});
 	});
 
