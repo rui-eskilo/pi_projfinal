@@ -3,11 +3,11 @@ var express = require('express');
 
 module.exports = function(app) {
 	var state = 0;
-	app.get('/forgot_password', function(req, res) {
+	app.get('/forgot_password', function(req, res, next) {
 		return res.render('./user/forgot_password', {state : state});
 	});
 
-	app.post('/forgot_password', function(req, res) {
+	app.post('/forgot_password', function(req, res, next) {
 
 		userDB.findUserByEmail(req.body.email, function(err, user) {
 			if(err) return next(err);

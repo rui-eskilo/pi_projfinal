@@ -9,6 +9,7 @@ var connString = config.db.connString;
 	this.nickname = nickname;
 	this.email = email;
 	this.isAuthenticated = false;
+	this.role = 'UE';
 }
 
 module.exports.User = User;
@@ -118,7 +119,22 @@ module.exports.changeEmail = function(id, newemail, cb){
 
 			});
 	});
-
 }
 
-		
+
+module.exports.create = function(username, password, nickname, email, role, cb){
+
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+		client.query("INSERT INTO dbuser (username, password, nickname, email, role ) VALUES($1, $2, $3, $4, $5)",
+			[username, password, nickname, email, role], 
+			function(err, result)
+			{
+				done();
+				if(err) return cb(err);
+				cb(null, true);
+			});
+	});
+
+}
