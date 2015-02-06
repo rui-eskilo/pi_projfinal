@@ -14,6 +14,16 @@ function Queixinha(id, state, cat, owner, geoRef, title, description)
 	this.title = title;
 }
 
+
+function SimpleQueixinha(id, cat, geoRef, title, description)
+{
+	this.id = id;
+	this.description = description;
+	this.cat = cat;
+	this.geoRef = geoRef;
+	this.title = title;
+}
+
 module.exports.Queixinha = Queixinha;
 
 
@@ -37,9 +47,6 @@ module.exports.getTotalNumberClosedQueixinhas = function(cb){
 		);
 	});
 }
-
-
-
 
 module.exports.getAllQueixinhasFromUser = function(id, cb)
 {
@@ -122,6 +129,29 @@ module.exports.getQueixinhasPage = function(start, cb)
 
 				var queixinhas = result.rows.map(function(row) {
 					return new Queixinha(row.id, row.state, row.category, row.nickname, row.georef, row.title, row.description);
+				});
+				cb(null, queixinhas);
+			}
+		);
+	});
+}
+
+
+module.exports.getQueixinhas = function(limit,cb)
+{
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+
+		client.query("SELECT * FROM queixinha AS q WHERE q.state=true LIMIT $1",
+			[limit],
+			function(err, result)
+			{
+				done();
+				if(err) return cb(err);
+
+				var queixinhas = result.rows.map(function(row) {
+					return new SimpleQueixinha(row.id, row.category, row.georef, row.title, row.description);
 				});
 				cb(null, queixinhas);
 			}
