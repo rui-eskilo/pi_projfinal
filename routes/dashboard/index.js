@@ -41,6 +41,19 @@ dashboardRouter.get('/followed', isLoggedIn, function(req, res, next){
 });
 
 
+dashboardRouter.get('/notifications', isLoggedIn, function(req, res, next){
+
+	var model = {user: req.user};
+	queixinhaDB.getNotifications(req.user.id, function(err, queixinhas){
+
+		if(err) return next(err);
+		model.queixinhas = queixinhas;
+		res.render('dashboard/notifications', model);
+
+		});
+});
+
+
 
 module.exports = function(app){
 

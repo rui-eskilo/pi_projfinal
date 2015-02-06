@@ -75,17 +75,34 @@ queixinhasRouter.get('/new', isLoggedIn, function(req, res, next) {
 		categoryDB.getAllCats(function(err, catgs){
 			if(err) return next(err);
 			var model = {categories: catgs};
-			console.log("model", model);
 			return res.render('queixinhas/new', model);
 		});
     });
 
 
+
+queixinhasRouter.get('/edit', isLoggedIn, function(req, res, next){
+
+		var q = parseInt(req.query.queixinha);
+		var model = {};
+		queixinhaDB.getQueixinhaById(q, function(err, result){
+
+				if(err) return next(err);
+				model.queixinha = result
+				categoryDB.getAllCats(function(err, catgs){
+
+					if(err) return next(err);
+					model.categories = catgs
+					res.render('dashboard/editQueixinha', model );
+				});
+			});	
+	});
+
+
+
 queixinhasRouter.post('/new', isLoggedIn, function(req, res, next)
 	{
 		var title = req.body.title;
-
-		// Não é necessário verificar a descricao uma vez que a DB tem um valor por default para a description
 		var description = req.body.description;
 
 		if(!title || !description) return res.status(400).send("Invalid data.");
@@ -93,8 +110,7 @@ queixinhasRouter.post('/new', isLoggedIn, function(req, res, next)
 		var cat = req.body.categoria;
 		var geo = req.body.geoRef;
 
-		//Falta subestituir o owner pelo user corrente !!!!!
-		var q = new queixinhaDB.Queixinha(null, true, cat, 1, geo, title, description);
+		var q = new queixinhaDB.Queixinha(null, true, cat, req.user.id, geo, title, description);
 	  	queixinhaDB.createQueixinha(q, function(err, id)
 	  	{
 	  		if(err) return next(err);
@@ -102,6 +118,29 @@ queixinhasRouter.post('/new', isLoggedIn, function(req, res, next)
 	  		return res.redirect(redirect);
 	  	});
 	});
+
+
+
+queixinhasRouter.post('/edit', isLoggedIn, function(req, res, next)
+	{
+		var title = req.body.title;
+		var description = req.body.description;
+
+		if(!title || !description) return res.status(400).send("Invalid data.");
+
+		var cat = req.body.categoria;
+		var geo = req.body.geoRef;
+
+		var q = new queixinhaDB.Queixinha(null, true, cat, req.user.id, geo, title, description);
+	  	queixinhaDB.createQueixinha(q, function(err, id)
+	  	{
+	  		if(err) return next(err);
+	  		var redirect = '/queixinhas/' + id.id;
+	  		return res.redirect(redirect);
+	  	});
+	});
+
+
 
 queixinhasRouter.post('/follow', isLoggedIn, function(req, res, next){
 
@@ -116,6 +155,7 @@ queixinhasRouter.post('/follow', isLoggedIn, function(req, res, next){
 	  		return res.redirect(redirect);
 	  	});
 });
+
 
 
 queixinhasRouter.post('/unfollow', isLoggedIn, function(req, res, next){
