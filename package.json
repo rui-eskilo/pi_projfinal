@@ -19,6 +19,7 @@
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
     "pg": "^4.1.1",
+    "pg-transaction": "^1.0.4",
     "serve-favicon": "~2.1.3"
   }
 }

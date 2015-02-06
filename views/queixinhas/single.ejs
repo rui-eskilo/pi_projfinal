@@ -45,8 +45,17 @@
                 <%}%>
             </div>
             <div class="col-lg-2">
-                <a href=""><i class="fa fa-eye fa-2x"></i></a>
-                <small>Seguir</small>
+                <% if(isFollowed){%>
+                    <i class="fa fa-eye fa-2x"></i>
+                    <small>Seguir</small>
+                <% } else {%>
+                    <form style='display:inline' id="followfrm" action="/queixinhas/follow" method="POST">
+                        <input type="hidden" name="dbuser" value="<%=user.id%>">
+                        <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
+                        <a href="#" onclick="document.getElementById('followfrm').submit()"><i class="fa fa-eye fa-2x"></i></a>
+                        <small>Seguir</small>
+                    </form>
+                <% }%>
             </div>
         </div>
     </div>

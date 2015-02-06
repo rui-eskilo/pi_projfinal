@@ -1,4 +1,5 @@
 var pg = require('pg');
+var transaction = require('pg-transaction');
 var config = require('./../config.json');
 var connString = config.db.connString;
 
@@ -40,11 +41,28 @@ module.exports.getAllCommentsFromQueixinha = function(id, cb)
 
 module.exports.createCommentary = function(comm, cb)
 {
+
+	var client = new pg.Client(connString);
+	client.connect();
+	var tx = new Transaction(client);
+	tx.on('error', function(err){if(err) return cb(err);});
+
+	tx.begin();
+	tx.query('INSERT INTO comentary(insertion_date, queixinha, dbuser, description) VALUES($1, $2, $3, $4) RETURNING id', [comm.insertdate, comm.queixinhaid, comm.dbuser, comm.description]);
+	tx.query('UPDATE queixinha_dbuser set dirty=true WHERE queixinha=$2' [comm.queixinhaid]);
+	tx.commit();
+	client.end();
+}
+
+
+module.exports.createCommentaryOLD = function(comm, cb)
+{
+
 	pg.connect(connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
-		client.query("INSERT INTO comentary(insertion_date, queixinha, dbuser, description) VALUES($1, $2, $3, $4) RETURNING id",
+		client.query("BEGIN; INSERT INTO comentary(insertion_date, queixinha, dbuser, description) VALUES($1, $2, $3, $4) RETURNING id; UPDATE queixinha_dbuser set dirty=true WHERE queixinha=$2; COMMIT;",
 			[comm.insertdate, comm.queixinhaid, comm.dbuser, comm.description],
 			function(err, result)
 			{

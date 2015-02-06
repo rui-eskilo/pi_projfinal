@@ -59,9 +59,12 @@ queixinhasRouter.get('/:id(\\d*)', isLoggedIn, function(req, res, next){
 					voteDB.isQueixinhaVotedByUser(id, user.id, function(err, bool){
 						if(err) return next(err);
 						model.isVoted = bool;
-						res.render('queixinhas/single', model);
+						queixinhaDB.isQueixinhaFollowedByUser(id, user.id, function(err, bool){
+							if(err) return next(err);
+							model.isFollowed = bool;
+							res.render('queixinhas/single', model);
+						});
 					});
-					
 				});
 			});
 		});
@@ -99,6 +102,65 @@ queixinhasRouter.post('/new', isLoggedIn, function(req, res, next)
 	  		return res.redirect(redirect);
 	  	});
 	});
+
+queixinhasRouter.post('/follow', isLoggedIn, function(req, res, next){
+
+	var dbuser = req.body.dbuser;
+	var queixinha = req.body.queixinha;
+
+	if(!dbuser || !queixinha) return res.status(400).send("Invalid data.");
+	queixinhaDB.followQueixinha(queixinha, dbuser, function(err, id)
+	  	{
+	  		if(err) return next(err);
+	  		var redirect = '/queixinhas/' + queixinha;
+	  		return res.redirect(redirect);
+	  	});
+});
+
+
+queixinhasRouter.post('/unfollow', isLoggedIn, function(req, res, next){
+
+	var dbuser = parseInt(req.body.dbuser);
+	var queixinha = parseInt(req.body.queixinha);
+
+	if(!dbuser || !queixinha) return res.status(400).send("Invalid data.");
+	queixinhaDB.unfollowQueixinha(queixinha, dbuser, function(err, id)
+	  	{
+	  		if(err) return next(err);
+	  		var redirect = '/dashboard/followed';
+	  		return res.redirect(redirect);
+	  	});
+});
+
+
+queixinhasRouter.post('/lock', isLoggedIn, function(req, res, next){
+
+	var dbuser = parseInt(req.body.dbuser);
+	var queixinha = parseInt(req.body.queixinha);
+
+	if(!dbuser || !queixinha) return res.status(400).send("Invalid data.");
+	queixinhaDB.closeQueixinha(queixinha, function(err, id)
+	  	{
+	  		if(err) return next(err);
+	  		var redirect = '/dashboard/myqueixinhas';
+	  		return res.redirect(redirect);
+	  	});
+});
+
+
+queixinhasRouter.post('/unlock', isLoggedIn, function(req, res, next){
+
+	var dbuser = parseInt(req.body.dbuser);
+	var queixinha = parseInt(req.body.queixinha);
+
+	if(!dbuser || !queixinha) return res.status(400).send("Invalid data.");
+	queixinhaDB.openQueixinha(queixinha, function(err, id)
+	  	{
+	  		if(err) return next(err);
+	  		var redirect = '/dashboard/myqueixinhas';
+	  		return res.redirect(redirect);
+	  	});
+});
 
 
 

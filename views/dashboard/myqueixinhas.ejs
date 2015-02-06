@@ -18,7 +18,11 @@
             	<a href="/queixinhas/<%=queixinha.id%>"><%= queixinha.title %></a>
         	</div>
         	<div class="col-lg-2">
-            	<a href=""><small> lock</small></a>
+                <form style='display:inline' id="lock<%=queixinha.id%>" action="/queixinhas/lock" method="POST">
+                        <input type="hidden" name="dbuser" value="<%=user.id%>">
+                        <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
+                        <a href="#" onclick="document.getElementById('lock<%=queixinha.id%>').submit()"><small> lock</small></a>
+                </form>
             </div>
         <% }else {%>
         	<div class="col-lg-7">
@@ -26,7 +30,11 @@
             	<a href="/queixinhas/<%=queixinha.id%>"><%= queixinha.title %></a>
             </div>
             <div class="col-lg-2">
-            	<a href=""><small> unlock</small></a>
+                <form style='display:inline' id="unlock<%=queixinha.id%>" action="/queixinhas/unlock" method="POST">
+                        <input type="hidden" name="dbuser" value="<%=user.id%>">
+                        <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
+                        <a href="#" onclick="document.getElementById('unlock<%=queixinha.id%>').submit()"><small> unlock</small></a>
+                </form>
             </div>
         <% }%>
 
