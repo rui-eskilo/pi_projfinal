@@ -153,6 +153,29 @@ module.exports.getQueixinhaById = function(id, cb)
 }
 
 
+module.exports.getNotifications = function(id, cb)
+{
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+
+		client.query("SELECT q.id AS id, state, c.description AS category, nickname, georef, title, q.description FROM queixinha AS q JOIN dbuser AS u ON q.owner=u.id JOIN category AS c ON q.category=c.id WHERE q.id IN (SELECT queixinha FROM queixinha_dbuser WHERE dbuser=$1 AND dirty=true)",
+			[id],
+			function(err, result)
+			{
+				done();
+				if(err) return cb(err);
+
+				var queixinhas = result.rows.map(function(row) {
+					return new Queixinha(row.id, row.state, row.category, row.nickname, row.georef, row.title, row.description);
+				});
+				cb(null, queixinhas);
+			}
+		);
+	});
+}
+
+
 
 module.exports.createQueixinha = function(queixinha, cb)
 {
