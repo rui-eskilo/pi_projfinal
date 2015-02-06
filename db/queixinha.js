@@ -250,3 +250,23 @@ module.exports.openQueixinha = function(queixinha, cb)
 		);
 	});
 }
+
+
+module.exports.markQueixinhaAsDirty = function(queixinha, cb)
+{
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+
+		client.query("UPDATE queixinha_dbuser set dirty=true WHERE queixinha=$1",
+			[queixinha],
+			function(err, result)
+			{
+				done();
+				if(err) return cb(err);
+				if(result.rowCount != 1) return cb(new Error("Error updating database..."));
+				cb(null, result.rows[0]);
+			}
+		);
+	});
+}

@@ -1,6 +1,8 @@
-var commentary = require('./../../db/comment');
+var commentaryDB = require('./../../db/comment');
+var queixinhaDB = require('./../../db/queixinha');
 var express = require('express');
 var commRouter = express.Router();
+
 
 
 commRouter.post('/new', isLoggedIn, function(req, res, next){
@@ -12,13 +14,17 @@ commRouter.post('/new', isLoggedIn, function(req, res, next){
 
 		if(!dbuser || !description || !queixinha || !geo) return res.status(400).send("Invalid data.");
 
-		var c = new commentary.Commentary(null, new Date(), queixinha, dbuser, description);
-	  	commentary.createCommentary(c, function(err, id)
+		var c = new commentaryDB.Commentary(null, new Date(), queixinha, dbuser, description);
+	  	commentaryDB.createCommentary(c, function(err, id)
 	  	{
 	  		if(err) return next(err);
-	  		var redirect = '/queixinhas/' + queixinha;
-	  		res.redirect(redirect);
-	  		return res;
+	  		queixinhaDB.markQueixinhaAsDirty(queixinha, function(err, id)
+	  		{
+	  			if(err) return next(err);
+	  			var redirect = '/queixinhas/' + queixinha;
+	  			res.redirect(redirect);
+	  			return res;
+	  		});
 	  	});
 	});
 

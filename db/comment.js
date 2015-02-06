@@ -1,5 +1,5 @@
 var pg = require('pg');
-var transaction = require('pg-transaction');
+var Transaction = require('pg-transaction');
 var config = require('./../config.json');
 var connString = config.db.connString;
 
@@ -38,7 +38,7 @@ module.exports.getAllCommentsFromQueixinha = function(id, cb)
 }
 
 
-
+/* As it is supposed to be done
 module.exports.createCommentary = function(comm, cb)
 {
 
@@ -50,19 +50,23 @@ module.exports.createCommentary = function(comm, cb)
 	tx.begin();
 	tx.query('INSERT INTO comentary(insertion_date, queixinha, dbuser, description) VALUES($1, $2, $3, $4) RETURNING id', [comm.insertdate, comm.queixinhaid, comm.dbuser, comm.description]);
 	tx.query('UPDATE queixinha_dbuser set dirty=true WHERE queixinha=$2' [comm.queixinhaid]);
-	tx.commit();
+	tx.commit(function(){
+
+
+	});
 	client.end();
 }
+*/
 
 
-module.exports.createCommentaryOLD = function(comm, cb)
+module.exports.createCommentary = function(comm, cb)
 {
 
 	pg.connect(connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
-		client.query("BEGIN; INSERT INTO comentary(insertion_date, queixinha, dbuser, description) VALUES($1, $2, $3, $4) RETURNING id; UPDATE queixinha_dbuser set dirty=true WHERE queixinha=$2; COMMIT;",
+		client.query("INSERT INTO comentary(insertion_date, queixinha, dbuser, description) VALUES($1, $2, $3, $4)",
 			[comm.insertdate, comm.queixinhaid, comm.dbuser, comm.description],
 			function(err, result)
 			{
@@ -70,7 +74,6 @@ module.exports.createCommentaryOLD = function(comm, cb)
 				if(err) return cb(err);
 				if(result.rowCount != 1) return cb(new Error("Error updating database..."));
 				cb(null, result.rows[0]);
-			}
-		);
+			});
 	});
 }
