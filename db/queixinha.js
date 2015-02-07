@@ -337,7 +337,24 @@ module.exports.markQueixinhaAsDirty = function(id, cb)
 			{
 				done();
 				if(err) return cb(err);
-				if(result.rowCount != 1) return cb(new Error("Error updating database..."));
+				cb(null, result.rows[0]);
+			}
+		);
+	});
+}
+
+module.exports.unmarkQueixinhaAsDirty = function(idq, userid, cb)
+{
+	pg.connect(connString, function(err, client, done) {
+
+		if(err) return cb(err);
+
+		client.query("UPDATE queixinha_dbuser set dirty=false WHERE queixinha=$1 AND dbuser=$2",
+			[idq, userid],
+			function(err, result)
+			{
+				done();
+				if(err) return cb(err);
 				cb(null, result.rows[0]);
 			}
 		);

@@ -62,7 +62,10 @@ queixinhasRouter.get('/:id(\\d*)', isLoggedIn, function(req, res, next){
 						queixinhaDB.isQueixinhaFollowedByUser(id, user.id, function(err, bool){
 							if(err) return next(err);
 							model.isFollowed = bool;
-							res.render('queixinhas/single', model);
+							queixinhaDB.unmarkQueixinhaAsDirty(id, user.id, function(err, bool){
+								if(err) return next(err);
+								res.render('queixinhas/single', model);
+							});
 						});
 					});
 				});
@@ -133,10 +136,11 @@ queixinhasRouter.post('/edit', isLoggedIn, function(req, res, next)
 		var geo = req.body.geoRef;
 
 		var q = new queixinhaDB.Queixinha(id, true, cat, req.user.id, geo, title, description);
-	  	queixinhaDB.editQueixinha(q, function(err, id)
+	  	queixinhaDB.editQueixinha(q, function(err, value)
 	  	{
 	  		if(err) return next(err);
-	  		queixinhaDB.markQueixinhaAsDirty(id, function(err, id){
+	  		var comm = new commentaryDB.Commentary(null, new Date(), id, req.user.id, 'Esta queixinha foi alterada pelo seu criador');
+	  		commentaryDB.createCommentary(comm, function(err, id){
 	  			if(err) return next(err);
 	  			var redirect = '/dashboard/myqueixinhas';
 	  			return res.redirect(redirect);
