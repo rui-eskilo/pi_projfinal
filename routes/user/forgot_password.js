@@ -1,22 +1,29 @@
 var userDB = require('./../../db/user');
+var userDB = require('./../../db/user');
 var express = require('express');
 
 module.exports = function(app) {
-	var state = 0;
+	var details = {};
+	details.state = 0;
 	app.get('/forgot_password', function(req, res, next) {
-		return res.render('./user/forgot_password', {state : state});
+		return res.render('./user/forgot_password', {details : details});
 	});
 
 	app.post('/forgot_password', function(req, res, next) {
 
+		
+
 		userDB.findUserByEmail(req.body.email, function(err, user) {
 			if(err) return next(err);
 			if(!user) {
-				state = 1;
-				return res.render('./user/forgot_password', {state : state});
+				details.state = 1;
+				return res.render('./user/forgot_password', {details : details});
 			} else {
-				state = 2;
-				return res.render('./user/forgot_password', {state : state});
+				details.state = 2;
+				console.log(user);
+				details.username = user.username;
+				details.password = user.password;
+				return res.render('./user/forgot_password', {details : details});
 			}
 		});
 	});
