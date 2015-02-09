@@ -5,22 +5,21 @@ var User = require('./db/user');
 passport.use(new LocalStrategy(
     function(username, password, done)
     {
-        console.log('Begin Authenticate');
         User.findUser(username, function(err, user){
             if(err) return done(err);
-            user.isAuthenticated = true;
+            if(password === user.password) {
+                user.isAuthenticated = true;
+            }
             return done(null, user);
         })
     }
 ));
 
 passport.serializeUser(function(user, done) {
-    console.log("serializeUser");
     done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-    console.log("deserializeUser");
     User.findUserById(id, function(err, user) {
         if(err) return done(err);
         user.isAuthenticated = true;
