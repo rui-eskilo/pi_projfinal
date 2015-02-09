@@ -3,16 +3,18 @@
         <div id="page-login" class="row">
             <div class="col-xs-12 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-3">
                 <div class="box">
-                    <div class="box-content">
+                    <div id="contact" class="box-content">
                         <hr>
                         <h2 class="intro-text text-center">
                             <strong>Contact</strong> us!
                         </h2>
                         <hr>
-                        <input id="name" type="text" class="form-control" name="name" value="your name"><br>
-                        <input type="email" name="mail" class="form-control" value="your email"><br>
-                        <textarea rows="6" type="text" class="form-control" name="comment"></textarea><br>
-                        <button class="btn btn-default btn-lg" onclick="sendMail(name, mail, text)">Send</button>
+                        <form id="contactForm" method="POST">
+                            <input id="name" type="text" id="name" class="form-control" name="name" placeholder="your name" required><br>
+                            <input type="email" id="mail" name="mail" class="form-control" placeholder="your email" required><br>
+                            <textarea rows="6" type="text" id="comment" class="form-control" name="comment" placeholder="your comment" required></textarea><br>
+                            <button class="btn btn-default btn-lg" onclick="return sendMail();">Send</button>
+                        </form>    
                     </div>
                 </div>
             </div>
