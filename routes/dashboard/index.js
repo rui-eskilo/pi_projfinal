@@ -53,11 +53,35 @@ dashboardRouter.get('/notifications', isLoggedIn, function(req, res, next){
 });
 
 
+
 dashboardRouter.get('/edit', isLoggedIn, function(req, res, next){
 
 	var model = {user: req.user};
 	res.render('dashboard/editUserData', model);
 });
+
+
+
+dashboardRouter.post('/edit', isLoggedIn, function(req, res, next){
+
+
+	var id = req.user.id;
+	var user = req.body.user;
+	var pass = req.body.password;
+	var email = req.body.email;
+	var nickname = req.body.nickname;
+
+	if(!id || !user || !pass || !email || !nickname) return res.status(400).send("Invalid data.");
+
+	var user = new userDB.User(id, user, pass, nickname, email);
+	userDB.editUser(user, function(err, id)
+	  	{
+	  		if(err) return next(err);
+	  		var redirect = '/dashboard';
+	  		return res.redirect(redirect);
+	  	});
+});
+
 
 
 

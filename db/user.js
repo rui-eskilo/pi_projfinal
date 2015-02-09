@@ -68,12 +68,13 @@ module.exports.findUserByEmail = function(email, cb) {
 }
 
 
-module.exports.changePass = function(id, newpass, cb){
+module.exports.editUser = function(user, cb){
 
 	pg.connect(connString, function(err, client, done) {
 
 		if(err) return cb(err);
-		client.query("UPDATE dbuser SET password=$1 WHERE id=%2", [newpass, id],
+		client.query("UPDATE dbuser SET username=$2, password=$3, nickname=$4, email=$5 WHERE id=$1", 
+			[user.id, user.username, user.password, user.nickname, user.email],
 			function(err, result)
 			{
 				done();
@@ -83,42 +84,6 @@ module.exports.changePass = function(id, newpass, cb){
 			});
 	});
 
-}
-
-
-module.exports.changeUser = function(id, newuser, cb){
-
-	pg.connect(connString, function(err, client, done) {
-
-		if(err) return cb(err);
-		client.query("UPDATE dbuser SET username=$1 WHERE id=%2", [newuser, id],
-			function(err, result)
-			{
-				done();
-				if(err) return cb(err);
-				cb(null, true);
-
-			});
-	});
-
-}
-
-
-
-module.exports.changeEmail = function(id, newemail, cb){
-
-	pg.connect(connString, function(err, client, done) {
-
-		if(err) return cb(err);
-		client.query("UPDATE dbuser SET email=$1 WHERE id=%2", [newemail, id],
-			function(err, result)
-			{
-				done();
-				if(err) return cb(err);
-				cb(null, true);
-
-			});
-	});
 }
 
 
