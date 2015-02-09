@@ -25,7 +25,7 @@ var sendMail = function() {
      }).done(function(response) {
       div.removeChild(document.getElementById("contactForm"));
       var h4 = document.createElement("h4");
-      var text = document.createTextNode("A tua mensagem foi enviada com sucesso. Certamente iremos responder num futuro próximo.\n No entanto se isso não acontecer podes sempre registar-te e apresentar uma queixinha! (\",)");
+      var text = document.createTextNode("A tua mensagem foi enviada com sucesso. Certamente iremos responder num futuro próximo. No entanto se isso não acontecer podes sempre registar-te e apresentar uma queixinha! (\",)");
       div.appendChild(h4.appendChild(text));
      });
      return false;
