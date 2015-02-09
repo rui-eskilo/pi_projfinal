@@ -5,34 +5,34 @@ var voteDB = require('./../../db/vote');
 var express = require('express');
 var queixinhasRouter = express.Router();
 var passport = require('passport');
-global.mycount = 0;
+global.mycountPages = 0;
 
 
 queixinhasRouter.get('/', isLoggedIn, function(req, res, next){
 
-		var start = parseInt(req.query.start);
+		var page = parseInt(req.query.page);
 
-		if(!start){ 
+		if(!page){ 
 
 			queixinhaDB.getTotalNumberClosedQueixinhas(function(err, total){
 
 				if(err) return next(err);
-				var tmp = parseInt(total);
-				global.mycount = tmp;
+				global.mycount = parseInt(total);
 				queixinhaDB.getQueixinhasPage(1, function(err, allQueixinhas)
 				{
-					if(err) return next(err); // res.status(500).send("OMG! Server Error.");
-					var model = { queixinhas: allQueixinhas, start: 1, count: global.mycount };
+					if(err) return next(err);
+					global.mycountPages = total%5>0 ? Math.ceil(total/5) : Math.ceil((total/5)+1);
+					var model = { queixinhas: allQueixinhas, page: 1, countPages: global.mycountPages };
 		  			res.render('queixinhas/list', model );
 		  		});
 			});
 		}
 		else{
-			queixinhaDB.getQueixinhasPage(start, function(err, allQueixinhas)
+			queixinhaDB.getQueixinhasPage(page, function(err, allQueixinhas)
 			{
 				if(err) return next(err); // res.status(500).send("OMG! Server Error.");
 
-				var model = { queixinhas: allQueixinhas, start: start, count: global.mycount };
+				var model = { queixinhas: allQueixinhas, page: page, countPages: global.mycountPages };
 	  			res.render('queixinhas/list', model );
 		});
 	}

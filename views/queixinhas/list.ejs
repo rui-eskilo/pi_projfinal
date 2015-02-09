@@ -20,14 +20,11 @@
                 <div class="box">
                     <nav>
                         <ul class="pagination">
-                            <% var c = 0;%>
-                            <% var page = start%5>0 ? Math.ceil(start/5) : Math.ceil((start/5)+1)%>
-                            <% for(var i=1; i<=count; i=i+5){%>
-                            <% ++c;%>
-                            <% if(c==page){%>
-                                <li class="active"><a href="/queixinhas?start=<%=i%>"><%= c %></a></li>
+                            <% for(var i=1; i<=countPages; i++){%>
+                            <% if(i==page){%>
+                                <li class="active"><a href="/queixinhas?page=<%=i%>"><%= i %></a></li>
                             <% } else {%>
-                                <li><a href="/queixinhas?start=<%=i%>"><%= c %></a></li>
+                                <li><a href="/queixinhas?page=<%=i%>"><%= i %></a></li>
                                 <% } %>
                             <% }%>
                         </ul>

@@ -114,14 +114,14 @@ module.exports.isQueixinhaFollowedByUser = function(idqueixinha, iduser, cb)
 }
 
 
-module.exports.getQueixinhasPage = function(start, cb)
+module.exports.getQueixinhasPage = function(page, cb)
 {
 	pg.connect(connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
-		client.query("SELECT q.id AS id, state, c.description AS category, nickname, georef, title, q.description FROM queixinha AS q JOIN dbuser AS u ON q.owner=u.id JOIN category AS c ON q.category=c.id WHERE q.state=true AND q.id>=$1 AND q.id<$2 ORDER BY q.id",
-			[start, start+5],
+		client.query("SELECT q.id AS id, state, c.description AS category, nickname, georef, title, q.description FROM queixinha AS q JOIN dbuser AS u ON q.owner=u.id JOIN category AS c ON q.category=c.id WHERE q.state=true ORDER BY q.id LIMIT 5 OFFSET $1",
+			[(page-1)*5],
 			function(err, result)
 			{
 				done();

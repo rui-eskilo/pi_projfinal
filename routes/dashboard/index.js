@@ -1,6 +1,5 @@
 var queixinhaDB = require('./../../db/queixinha');
 var userDB = require('./../../db/user');
-var voteDB = require('./../../db/vote');
 var express = require('express');
 var dashboardRouter = express.Router();
 
@@ -51,6 +50,13 @@ dashboardRouter.get('/notifications', isLoggedIn, function(req, res, next){
 		res.render('dashboard/notifications', model);
 
 		});
+});
+
+
+dashboardRouter.get('/edit', isLoggedIn, function(req, res, next){
+
+	var model = {user: req.user};
+	res.render('dashboard/editUserData', model);
 });
 
 
