@@ -7,16 +7,17 @@
               <hr>
                 <h2 class="intro-text text-center">Nova <strong>Queixinha</strong></h2>
               <hr>
+              </br>
               <form class="form-horizontal" method="POST">
                 <div class="form-group">
                   <label for="title" class="col-sm-2 control-label">Título</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="title" required name="title" placeholder="Titulo">
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" id="title" required name="title" placeholder="Titulo" maxlength="140">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="description" class="col-sm-2 control-label">Descrição</label>
-                  <div class="col-sm-10">
+                  <div class="col-sm-9">
                     <textarea class="form-control" name="description" required></textarea>
                   </div>
                 </div>
@@ -25,7 +26,7 @@
                   <div class="col-sm-4">
                     <input class="form-control" name="geoRef" required placeholder="Ex: Lisboa">
                   </div>
-                  <label for="geoRef" class="col-sm-2 control-label">Categoria</i></label>
+                  <label for="geoRef" class="col-sm-1 control-label">Categoria</i></label>
                   <div class="col-sm-4">
                     <select class="form-control" name="categoria" required>
                       <% for(var i=0; i<categories.length; i++) {%>
@@ -34,9 +35,11 @@
                     </select>
                   </div>
                 </div>
+                </br>
                 <div class="form-group">
                   <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Criar</button>
+                    <button type="submit" class="btn btn-default" value="submit">Criar</button>
+                    <button type="reset" class="btn btn-default" value="reset">Cancel</button>
                   </div>
                 </div>
               </form>
