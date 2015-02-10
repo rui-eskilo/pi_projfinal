@@ -5,7 +5,7 @@
          <div class="box" style="padding-top: 10px">
             <div class="row">
                 <hr style="margin-top: 10px">
-                <h2 class="intro-text text-center" style="color: rgb(64, 152, 152)"> <%= queixinha.title %></h2>
+                <h2 class="intro-text text-center"> <%= queixinha.title %></h2>
                 <hr>
                 <div class="p-centered"><%= queixinha.description %></div>
                 <br>
@@ -74,7 +74,7 @@
                 <% comments.forEach(function(comm) { %>
 
                 <div class="panel panel-default" style="margin-bottom: 0px">
-                    <div class="panel-body" style="background-color:rgb(170, 170, 207)"><%= comm.description %></div>
+                    <div class="panel-body" style="background-color:rgb(170, 170, 207)"><i class="fa fa-comment fa-2x"></i>&nbsp;&nbsp;&nbsp;<%= comm.description %></div>
                     <div class="panel-footer" style="background-color: azure">
                         <div class="row">
                             <div class="col-md-2">
@@ -85,7 +85,7 @@
                                 <i class="fa fa-globe"></i>
                                 <small><%= queixinha.geoRef %></small>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-6">
                                 <i class="fa fa-calendar"></i>
                                 <small><%= comm.insertdate %></small>
                             </div>
