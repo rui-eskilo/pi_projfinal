@@ -7,7 +7,7 @@ passport.use(new LocalStrategy(
     {
         User.findUser(username, function(err, user){
             if(err) return done(err);
-            if(password === user.password) {
+            if(user && password === user.password) {
                 user.isAuthenticated = true;
             }
             return done(null, user);

@@ -24,8 +24,12 @@ module.exports.findUser = function(username, cb) {
 			{
 				done();
 				if(err) return cb(err);
-				var user = new User(result.rows[0].id, result.rows[0].username, result.rows[0].password, result.rows[0].nickname, result.rows[0].email);
-				cb(null, user);
+				if(result.rows.length === 0) {
+					cb(null, null);
+				} else {
+					var user = new User(result.rows[0].id, result.rows[0].username, result.rows[0].password, result.rows[0].nickname, result.rows[0].email);
+					cb(null, user);
+				}
 			}
 		);
 	});
