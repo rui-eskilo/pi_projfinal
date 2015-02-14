@@ -41,7 +41,7 @@ module.exports.findUserById = function(id, cb) {
 
 		if(err) return cb(err);
 
-		client.query("seprocess.env.DATABASE_URL || lect * from dbuser where id=$1", [id],
+		client.query("select * from dbuser where id=$1", [id],
 			function(err, result)
 			{
 				done();
