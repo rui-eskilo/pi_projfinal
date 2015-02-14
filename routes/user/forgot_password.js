@@ -33,7 +33,7 @@ module.exports = function(app) {
                 				'type': 'to' }],
           					'autotext': 'true',
           					'subject': 'Recuperação de Password e Username' ,
-          					'html': 'O seu Username é:' + user.username + ' e a password: ' + user.password
+          					'html': 'O seu Username é: ' + user.username + ' e a password: ' + user.password
         					}
       				}},
 					    function (error, response, body) {
