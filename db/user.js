@@ -72,7 +72,6 @@ module.exports.findUserByEmail = function(email, cb) {
 }
 
 
-
 module.exports.editUser = function(user, cb){
 
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
