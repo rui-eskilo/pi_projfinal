@@ -46,7 +46,7 @@ queixinhasRouter.get('/:id(\\d*)', isLoggedIn, function(req, res, next){
 		var user = req.user;
 		var model = {};
 
-		// Mudar para Async !!!!!
+		// Mudar para a framework Async !!!!!
 		queixinhaDB.getQueixinhaById(id, function(err, queixinha){
 			if(err) return next(err);
 			model.queixinha = queixinha;
