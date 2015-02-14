@@ -13,7 +13,7 @@ var sendMail = function() {
           'from_email': mail.value,
           'to': [
               {
-                'email': 'victor.silva.morais@gmail.com',
+                'email': 'queixinhas100@gmail.com',
                 'type': 'to'
               }
             ],

@@ -27,7 +27,7 @@ module.exports = function(app) {
    					 	form: {
         					'key': 'nWryQ-a-tKIYoicHqHPmWw',
         					'message': {
-          					'from_email': 'victor.silva.morais@gmail.com',
+          					'from_email': 'queixinhas100@gmail.com',
           					'to': [
               					{'email': user.email,
                 				'type': 'to' }],
