@@ -31,7 +31,7 @@ module.exports.Queixinha = Queixinha;
 
 module.exports.getTotalNumberClosedQueixinhas = function(cb){
 
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -50,7 +50,7 @@ module.exports.getTotalNumberClosedQueixinhas = function(cb){
 
 module.exports.getAllQueixinhasFromUser = function(id, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -73,7 +73,7 @@ module.exports.getAllQueixinhasFromUser = function(id, cb)
 
 module.exports.getAllFollowedQueixinhas = function(id, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -96,7 +96,7 @@ module.exports.getAllFollowedQueixinhas = function(id, cb)
 
 module.exports.isQueixinhaFollowedByUser = function(idqueixinha, iduser, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -116,7 +116,7 @@ module.exports.isQueixinhaFollowedByUser = function(idqueixinha, iduser, cb)
 
 module.exports.getQueixinhasPage = function(page, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -139,7 +139,7 @@ module.exports.getQueixinhasPage = function(page, cb)
 
 module.exports.getQueixinhas = function(limit,cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -163,7 +163,7 @@ module.exports.getQueixinhas = function(limit,cb)
 
 module.exports.getQueixinhaById = function(id, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -185,7 +185,7 @@ module.exports.getQueixinhaById = function(id, cb)
 
 module.exports.getNotifications = function(id, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -209,7 +209,7 @@ module.exports.getNotifications = function(id, cb)
 
 module.exports.createQueixinha = function(queixinha, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -229,7 +229,7 @@ module.exports.createQueixinha = function(queixinha, cb)
 
 module.exports.editQueixinha = function(queixinha, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -249,7 +249,7 @@ module.exports.editQueixinha = function(queixinha, cb)
 
 module.exports.followQueixinha = function(queixinha, user, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -269,7 +269,7 @@ module.exports.followQueixinha = function(queixinha, user, cb)
 
 module.exports.unfollowQueixinha = function(queixinha, user, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -288,7 +288,7 @@ module.exports.unfollowQueixinha = function(queixinha, user, cb)
 
 module.exports.closeQueixinha = function(queixinha, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -307,7 +307,7 @@ module.exports.closeQueixinha = function(queixinha, cb)
 
 module.exports.openQueixinha = function(queixinha, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -327,7 +327,7 @@ module.exports.openQueixinha = function(queixinha, cb)
 
 module.exports.markQueixinhaAsDirty = function(id, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -345,7 +345,7 @@ module.exports.markQueixinhaAsDirty = function(id, cb)
 
 module.exports.unmarkQueixinhaAsDirty = function(idq, userid, cb)
 {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
