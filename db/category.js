@@ -12,7 +12,7 @@ module.exports.Category = Category;
 
 module.exports.getAllCats = function(cb) {
 	
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 		if(err) return cb(err);
 
 		client.query("SELECT * FROM category",

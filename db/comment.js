@@ -22,7 +22,7 @@ module.exports.Commentary = Commentary;
 module.exports.getAllCommentsFromQueixinha = function(id, cb)
 {
 
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 		if(err) return cb(err);
 		client.query("select c.id, insertion_date, queixinha, nickname, description from comentary AS c JOIN dbuser AS u ON c.dbuser = u.id where queixinha = $1", [id], 
 			function(err, result)
@@ -59,7 +59,7 @@ module.exports.createCommentary = function(comm, cb)
 module.exports.createCommentary = function(comm, cb)
 {
 
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 

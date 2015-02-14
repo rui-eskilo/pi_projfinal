@@ -15,7 +15,7 @@ var connString = config.db.connString;
 module.exports.User = User;
 
 module.exports.findUser = function(username, cb) {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -37,11 +37,11 @@ module.exports.findUser = function(username, cb) {
 
 
 module.exports.findUserById = function(id, cb) {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
-		client.query("select * from dbuser where id=$1", [id],
+		client.query("seprocess.env.DATABASE_URL || lect * from dbuser where id=$1", [id],
 			function(err, result)
 			{
 				done();
@@ -53,7 +53,7 @@ module.exports.findUserById = function(id, cb) {
 }
 
 module.exports.findUserByEmail = function(email, cb) {
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
@@ -74,7 +74,7 @@ module.exports.findUserByEmail = function(email, cb) {
 
 module.exports.editUser = function(user, cb){
 
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 		client.query("UPDATE dbuser SET username=$2, password=$3, nickname=$4, email=$5 WHERE id=$1", 
@@ -93,7 +93,7 @@ module.exports.editUser = function(user, cb){
 
 module.exports.create = function(username, password, nickname, email, role, cb){
 
-	pg.connect(connString, function(err, client, done) {
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 		client.query("INSERT INTO dbuser (username, password, nickname, email, role ) VALUES($1, $2, $3, $4, $5)",

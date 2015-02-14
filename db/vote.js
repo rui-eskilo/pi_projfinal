@@ -17,7 +17,7 @@ module.exports.Vote = Vote;
 
 module.exports.isQueixinhaVotedByUser = function(queixinha, user, cb){
 
-	pg.connect(connString, function(err, client, done){
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done){
 
 		if(err) return cb(err);
 
@@ -35,7 +35,7 @@ module.exports.isQueixinhaVotedByUser = function(queixinha, user, cb){
 
 module.exports.getListVotesByQueixinha = function(id, cb){
 
-	pg.connect(connString, function(err, client, done){
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done){
 
 		if(err) return cb(err);
 		client.query("SELECT * FROM vote WHERE queixinha=$1", [id], function(err, result){
@@ -56,7 +56,7 @@ module.exports.getListVotesByQueixinha = function(id, cb){
 
 module.exports.insertVote = function(vote, cb){
 
-	pg.connect(connString, function(err, client, done){
+	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done){
 
 		if(err) return cb(err);
 		client.query("insert into vote(value, queixinha, dbuser) VALUES ($1, $2, $3)", 
