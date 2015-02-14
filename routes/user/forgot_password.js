@@ -4,8 +4,6 @@ var express = require('express');
 
 var request = require('request');
 
-
-
 module.exports = function(app) {
 	var details = {};
 	details.state = 0;
@@ -36,17 +34,16 @@ module.exports = function(app) {
           					'html': 'O seu Username é: ' + user.username + ' e a password: ' + user.password
         					}
       				}},
-					    function (error, response, body) {
-					    	console.log(body);
-					        if (!error && response.statusCode == 200) {
-					            details.state = 2;
-					            return res.render('./user/forgot_password', {details : details});
-					        } else {
-					        	details.state = 3;
-					        	return res.render('./user/forgot_password', {details : details});
-					        }
-					    }
-					);
+				    function (error, response, body) {
+				        if (!error && response.statusCode == 200) {
+				            details.state = 2;
+				            return res.render('./user/forgot_password', {details : details});
+				        } else {
+				        	details.state = 3;
+				        	return res.render('./user/forgot_password', {details : details});
+				        }
+				    }
+				);
 			}
 		});
 	});
