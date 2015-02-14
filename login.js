@@ -30,9 +30,11 @@ passport.deserializeUser(function(id, done) {
 
 module.exports = function(app) {
     app.use(function(req, res, next) {
-      res.locals.user = req.user || new User.User();
-      next();
+        res.locals.user = req.user || new User.User();
+        next();
     });
+
+
 
     app.get('/login', function(req, res, next) {
         return res.render('login');

@@ -20,7 +20,6 @@ module.exports.getAllCats = function(cb) {
 			{
 				done();
 				var cat = result.rows.map(function(row) {
-					console.log(row.description);
 					return new Category(row.id, row.description);
 				});
 				cb(null, cat);
