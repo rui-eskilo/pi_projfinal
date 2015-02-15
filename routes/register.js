@@ -1,7 +1,6 @@
 var userDB = require('./../db/user');
 var express = require('express');
 
-
 module.exports = function(app) {
 
 	app.get('/register', function(req, res, next) {

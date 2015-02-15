@@ -8,8 +8,6 @@ var connString = config.db.connString;
 }
 module.exports.Category = Category;
 
-
-
 module.exports.getAllCats = function(cb) {
 	
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
