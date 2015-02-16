@@ -35,7 +35,6 @@ module.exports.findUser = function(username, cb) {
 	});
 }
 
-
 module.exports.findUserById = function(id, cb) {
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
@@ -48,7 +47,8 @@ module.exports.findUserById = function(id, cb) {
 				if(err) return cb(err);
 				var user = new User(result.rows[0].id, result.rows[0].username, result.rows[0].password, result.rows[0].nickname, result.rows[0].email);
 				cb(null, user);
-			});
+			}
+		);
 	});
 }
 
@@ -85,9 +85,9 @@ module.exports.editUser = function(user, cb){
 				if(err) return cb(err);
 				cb(null, true);
 
-			});
+			}
+		);
 	});
-
 }
 
 

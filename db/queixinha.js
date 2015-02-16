@@ -27,8 +27,6 @@ function SimpleQueixinha(id, cat, geoRef, title, description)
 module.exports.Queixinha = Queixinha;
 
 
-
-
 module.exports.getTotalNumberClosedQueixinhas = function(cb){
 
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
@@ -137,7 +135,7 @@ module.exports.getQueixinhasPage = function(page, cb)
 }
 
 
-module.exports.getQueixinhas = function(limit,cb)
+module.exports.getQueixinhas = function(limit, cb)
 {
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
@@ -158,8 +156,6 @@ module.exports.getQueixinhas = function(limit,cb)
 		);
 	});
 }
-
-
 
 module.exports.getQueixinhaById = function(id, cb)
 {
@@ -205,8 +201,6 @@ module.exports.getNotifications = function(id, cb)
 	});
 }
 
-
-
 module.exports.createQueixinha = function(queixinha, cb)
 {
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
@@ -225,7 +219,6 @@ module.exports.createQueixinha = function(queixinha, cb)
 		);
 	});
 }
-
 
 module.exports.editQueixinha = function(queixinha, cb)
 {
@@ -246,7 +239,6 @@ module.exports.editQueixinha = function(queixinha, cb)
 	});
 }
 
-
 module.exports.followQueixinha = function(queixinha, user, cb)
 {
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
@@ -265,7 +257,6 @@ module.exports.followQueixinha = function(queixinha, user, cb)
 		);
 	});
 }
-
 
 module.exports.unfollowQueixinha = function(queixinha, user, cb)
 {
@@ -323,7 +314,6 @@ module.exports.openQueixinha = function(queixinha, user, cb)
 		);
 	});
 }
-
 
 module.exports.markQueixinhaAsDirty = function(id, cb)
 {

@@ -3,8 +3,6 @@ var Transaction = require('pg-transaction');
 var config = require('./../config.json');
 var connString = config.db.connString;
 
-
-
 function Commentary(id, insertDate, queixinhaId, dbUser, description)
 {
 

@@ -2,8 +2,6 @@ var pg = require('pg');
 var config = require('./../config.json');
 var connString = config.db.connString;
 
-
-
 function Vote(id, value, queixinha, dbuser)
 {
 	this.id = id;
@@ -13,7 +11,6 @@ function Vote(id, value, queixinha, dbuser)
 }
 
 module.exports.Vote = Vote;
-
 
 module.exports.isQueixinhaVotedByUser = function(queixinha, user, cb){
 
@@ -52,7 +49,6 @@ module.exports.getListVotesByQueixinha = function(id, cb){
 		});
 	});
 }
-
 
 module.exports.insertVote = function(vote, cb){
 
