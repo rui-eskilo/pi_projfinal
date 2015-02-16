@@ -153,7 +153,7 @@ queixinhasRouter.post('/edit', isLoggedIn, function(req, res, next)
 
 queixinhasRouter.post('/follow', isLoggedIn, function(req, res, next){
 
-	var dbuser = req.body.dbuser;
+	var dbuser = req.user.id;
 	var queixinha = req.body.queixinha;
 
 	if(!dbuser || !queixinha) return res.status(400).send("Invalid data.");
@@ -169,7 +169,7 @@ queixinhasRouter.post('/follow', isLoggedIn, function(req, res, next){
 
 queixinhasRouter.post('/unfollow', isLoggedIn, function(req, res, next){
 
-	var dbuser = parseInt(req.body.dbuser);
+	var dbuser = req.user.id;
 	var queixinha = parseInt(req.body.queixinha);
 
 	if(!dbuser || !queixinha) return res.status(400).send("Invalid data.");
@@ -184,11 +184,11 @@ queixinhasRouter.post('/unfollow', isLoggedIn, function(req, res, next){
 
 queixinhasRouter.post('/lock', isLoggedIn, function(req, res, next){
 
-	var dbuser = parseInt(req.body.dbuser);
+	var dbuser = req.user.id;
 	var queixinha = parseInt(req.body.queixinha);
 
 	if(!dbuser || !queixinha) return res.status(400).send("Invalid data.");
-	queixinhaDB.closeQueixinha(queixinha, function(err, id)
+	queixinhaDB.closeQueixinha(queixinha, dbuser, function(err, id)
 	  	{
 	  		if(err) return next(err);
 	  		var redirect = '/dashboard/myqueixinhas';
@@ -199,11 +199,11 @@ queixinhasRouter.post('/lock', isLoggedIn, function(req, res, next){
 
 queixinhasRouter.post('/unlock', isLoggedIn, function(req, res, next){
 
-	var dbuser = parseInt(req.body.dbuser);
+	var dbuser = req.user.id;
 	var queixinha = parseInt(req.body.queixinha);
 
 	if(!dbuser || !queixinha) return res.status(400).send("Invalid data.");
-	queixinhaDB.openQueixinha(queixinha, function(err, id)
+	queixinhaDB.openQueixinha(queixinha, dbuser, function(err, id)
 	  	{
 	  		if(err) return next(err);
 	  		var redirect = '/dashboard/myqueixinhas';

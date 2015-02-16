@@ -30,7 +30,6 @@
                 	</div>
                 	<div class="col-lg-2">
                         <form style='display:inline' id="lock<%=queixinha.id%>" action="/queixinhas/lock" method="POST">
-                                <input type="hidden" name="dbuser" value="<%=user.id%>">
                                 <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
                                 <a href="#" onclick="document.getElementById('lock<%=queixinha.id%>').submit()"><i class="fa fa-lock"></i> Fechar Queixinha</a>
                         </form>
@@ -42,7 +41,6 @@
                     </div>
                     <div class="col-lg-2">
                         <form style='display:inline' id="unlock<%=queixinha.id%>" action="/queixinhas/unlock" method="POST">    
-                            <input type="hidden" name="dbuser" value="<%=user.id%>">
                             <input type="hidden" name="queixinha" value="<%=queixinha.id%>">
                             <a href="#" onclick="document.getElementById('unlock<%=queixinha.id%>').submit()"><i class="fa fa-unlock"></i> Activar Queixinha</a>
                         </form>

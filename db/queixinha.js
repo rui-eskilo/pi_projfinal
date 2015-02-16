@@ -233,8 +233,8 @@ module.exports.editQueixinha = function(queixinha, cb)
 
 		if(err) return cb(err);
 
-		client.query("UPDATE queixinha SET category=$1, georef=$2, title=$3, description=$4 WHERE id=$5",
-			[queixinha.cat, queixinha.geoRef, queixinha.title, queixinha.description, queixinha.id],
+		client.query("UPDATE queixinha SET category=$1, georef=$2, title=$3, description=$4 WHERE id=$5 AND owner=$6",
+			[queixinha.cat, queixinha.geoRef, queixinha.title, queixinha.description, queixinha.id, queixinha.owner],
 			function(err, result)
 			{
 				done();
@@ -286,14 +286,14 @@ module.exports.unfollowQueixinha = function(queixinha, user, cb)
 	});
 }
 
-module.exports.closeQueixinha = function(queixinha, cb)
+module.exports.closeQueixinha = function(queixinha, user, cb)
 {
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
-		client.query("UPDATE queixinha SET state=false WHERE id=$1",
-			[queixinha],
+		client.query("UPDATE queixinha SET state=false WHERE id=$1 AND owner=$2",
+			[queixinha, user],
 			function(err, result)
 			{
 				done();
@@ -305,14 +305,14 @@ module.exports.closeQueixinha = function(queixinha, cb)
 	});
 }
 
-module.exports.openQueixinha = function(queixinha, cb)
+module.exports.openQueixinha = function(queixinha, user, cb)
 {
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
 
-		client.query("UPDATE queixinha SET state=true WHERE id=$1",
-			[queixinha],
+		client.query("UPDATE queixinha SET state=true WHERE id=$1 AND owner=$2",
+			[queixinha, user],
 			function(err, result)
 			{
 				done();
