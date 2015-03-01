@@ -21,7 +21,7 @@ queixinhasRouter.get('/', isLoggedIn, function(req, res, next){
 				queixinhaDB.getQueixinhasPage(1, function(err, allQueixinhas)
 				{
 					if(err) return next(err);
-					global.mycountPages = total%5>0 ? Math.ceil(total/5) : Math.ceil((total/5)+1);
+					global.mycountPages = Math.ceil(total/5);
 					var model = { queixinhas: allQueixinhas, page: 1, countPages: global.mycountPages };
 		  			res.render('queixinhas/list', model );
 		  		});

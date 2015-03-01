@@ -21,11 +21,11 @@
                     <nav>
                         <ul class="pagination">
                             <% for(var i=1; i<=countPages; i++){%>
-                            <% if(i==page){%>
-                                <li class="active"><a href="/queixinhas?page=<%=i%>"><%= i %></a></li>
-                            <% } else {%>
-                                <li><a href="/queixinhas?page=<%=i%>"><%= i %></a></li>
-                                <% } %>
+                                <% if(i==page){%>
+                                    <li class="active"><a href="/queixinhas?page=<%=i%>"><%= i %></a></li>
+                                <% } else {%>
+                                    <li><a href="/queixinhas?page=<%=i%>"><%= i %></a></li>
+                                    <% } %>
                             <% }%>
                         </ul>
                     </nav>
