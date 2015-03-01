@@ -3,16 +3,11 @@ var userDB = require('./../../db/user');
 var express = require('express');
 var dashboardRouter = express.Router();
 
-
-
-
 dashboardRouter.get('/', isLoggedIn, function(req, res, next){
 
 	var model = {user: req.user};
 	res.render('dashboard/initial', model);
 });
-
-
 
 dashboardRouter.get('/myqueixinhas', isLoggedIn, function(req, res, next){
 
@@ -25,26 +20,18 @@ dashboardRouter.get('/myqueixinhas', isLoggedIn, function(req, res, next){
 	});
 });
 
-
-
 dashboardRouter.get('/followed', isLoggedIn, function(req, res, next){
-
 	var model = {user: req.user};
 	queixinhaDB.getAllFollowedQueixinhas(req.user.id, function(err, queixinhas){
-
 		if(err) return next(err);
 		model.queixinhas = queixinhas;
 		res.render('dashboard/followed', model);
-
 		});
 });
 
-
 dashboardRouter.get('/notifications', isLoggedIn, function(req, res, next){
-
 	var model = {user: req.user};
 	queixinhaDB.getNotifications(req.user.id, function(err, queixinhas){
-
 		if(err) return next(err);
 		model.queixinhas = queixinhas;
 		res.render('dashboard/notifications', model);
@@ -52,19 +39,13 @@ dashboardRouter.get('/notifications', isLoggedIn, function(req, res, next){
 		});
 });
 
-
-
 dashboardRouter.get('/edit', isLoggedIn, function(req, res, next){
 
 	var model = {user: req.user};
 	res.render('dashboard/editUserData', model);
 });
 
-
-
 dashboardRouter.post('/edit', isLoggedIn, function(req, res, next){
-
-
 	var id = req.user.id;
 	var user = req.body.user;
 	var pass = req.body.password;
@@ -82,19 +63,9 @@ dashboardRouter.post('/edit', isLoggedIn, function(req, res, next){
 	  	});
 });
 
-
-
-
 module.exports = function(app){
-
 	app.use('/dashboard', dashboardRouter)
 }
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-///
-///
 
 function isLoggedIn(req, res, next) {
 	if(req.user && req.user.isAuthenticated) {

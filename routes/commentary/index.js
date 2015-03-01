@@ -3,10 +3,7 @@ var queixinhaDB = require('./../../db/queixinha');
 var express = require('express');
 var commRouter = express.Router();
 
-
-
 commRouter.post('/new', isLoggedIn, function(req, res, next){
-
 		var dbuser = req.body.dbuser;
 		var queixinha = req.body.queixinha;
 		var geo = req.body.georef;
@@ -28,17 +25,9 @@ commRouter.post('/new', isLoggedIn, function(req, res, next){
 	  	});
 	});
 
-
-
-
-
 module.exports = function(app){
-
 	app.use('/commentary', commRouter)
 }
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////
 
 function isLoggedIn(req, res, next) {
 	if(!req.user || !req.user.isAuthenticated) {

@@ -14,7 +14,6 @@ function Queixinha(id, state, cat, owner, geoRef, title, description)
 	this.title = title;
 }
 
-
 function SimpleQueixinha(id, cat, geoRef, title, description)
 {
 	this.id = id;
@@ -26,8 +25,7 @@ function SimpleQueixinha(id, cat, geoRef, title, description)
 
 module.exports.Queixinha = Queixinha;
 
-
-module.exports.getTotalNumberClosedQueixinhas = function(cb){
+module.exports.getTotalNumberOpenQueixinhas = function(cb){
 
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
@@ -38,7 +36,6 @@ module.exports.getTotalNumberClosedQueixinhas = function(cb){
 			{
 				done();
 				if(err) return cb(err);
-
 				var res = result.rows[0].count;
 				cb(null, res);
 			}

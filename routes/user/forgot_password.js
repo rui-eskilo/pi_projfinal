@@ -1,7 +1,5 @@
 var userDB = require('./../../db/user');
-var userDB = require('./../../db/user');
 var express = require('express');
-
 var request = require('request');
 
 module.exports = function(app) {

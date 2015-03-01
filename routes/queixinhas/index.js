@@ -14,7 +14,7 @@ queixinhasRouter.get('/', isLoggedIn, function(req, res, next){
 
 		if(!page){ 
 
-			queixinhaDB.getTotalNumberClosedQueixinhas(function(err, total){
+			queixinhaDB.getTotalNumberOpenQueixinhas(function(err, total){
 
 				if(err) return next(err);
 				global.mycount = parseInt(total);

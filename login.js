@@ -34,8 +34,6 @@ module.exports = function(app) {
         next();
     });
 
-
-
     app.get('/login', function(req, res, next) {
         return res.render('login');
     });
@@ -50,6 +48,5 @@ module.exports = function(app) {
       req.logout();
       res.redirect('/');
     });
-
 }
 

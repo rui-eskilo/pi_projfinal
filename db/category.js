@@ -6,10 +6,10 @@ var connString = config.db.connString;
 	this.id = id;
 	this.name = name;
 }
+
 module.exports.Category = Category;
 
-module.exports.getAllCats = function(cb) {
-	
+module.exports.getAllCats = function(cb) {	
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 		if(err) return cb(err);
 

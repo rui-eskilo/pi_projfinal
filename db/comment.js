@@ -1,11 +1,10 @@
 var pg = require('pg');
-var Transaction = require('pg-transaction');
+var transaction = require('pg-transaction');
 var config = require('./../config.json');
 var connString = config.db.connString;
 
 function Commentary(id, insertDate, queixinhaId, dbUser, description)
 {
-
 	this.id = id;
 	this.insertdate = insertDate;
 	this.queixinhaid = queixinhaId;
@@ -14,8 +13,6 @@ function Commentary(id, insertDate, queixinhaId, dbUser, description)
 }
 
 module.exports.Commentary = Commentary;
-
-
 
 module.exports.getAllCommentsFromQueixinha = function(id, cb)
 {
@@ -56,7 +53,6 @@ module.exports.createCommentary = function(comm, cb)
 
 module.exports.createCommentary = function(comm, cb)
 {
-
 	pg.connect(process.env.DATABASE_URL || connString, function(err, client, done) {
 
 		if(err) return cb(err);
