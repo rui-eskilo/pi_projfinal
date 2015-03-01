@@ -32,6 +32,7 @@ module.exports = function(app) {
           					'html': 'O seu Username é: ' + user.username + ' e a password: ' + user.password
         					}
       				}},
+      				
 				    function (error, response, body) {
 				        if (!error && response.statusCode == 200) {
 				            details.state = 2;
